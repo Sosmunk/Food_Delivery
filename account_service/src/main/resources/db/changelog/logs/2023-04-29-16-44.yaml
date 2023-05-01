@@ -28,8 +28,6 @@ databaseChangeLog:
               - column:
                   name: "phone"
                   type: varchar
-                  constraints:
-                    primaryKey: true
               - column:
                   name: "password"
                   type: varchar
