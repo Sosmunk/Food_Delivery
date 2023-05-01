@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: "Sosmunk"
+      changes:
+        - createTable:
+            tableName: "t_address"
+            columns:
+              - column:
+                  name: "address_id"
+                  type: uuid
+                  constraints:
+                    foreignKeyName: "fk_address_order"
+                    references: t_order(order_id)
+              - column:
+                  name: "city"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "district"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "house_number"
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "house_number_literal"
+                  type: char(1)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: "apartment_number"
+                  type: integer
+                  constraints:
+                    nullable: false
