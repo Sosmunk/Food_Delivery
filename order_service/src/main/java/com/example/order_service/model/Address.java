@@ -33,7 +33,7 @@ public class Address {
     private String street;
 
     @NotNull
-    private Integer houseNumber;
+    private int houseNumber;
 
     /**
      * Буква номера дома (А, Б, В...)
@@ -42,6 +42,6 @@ public class Address {
     private char houseNumberLiteral;
 
     @NotNull
-    private Integer apartmentNumber;
+    private int apartmentNumber;
 
 }
