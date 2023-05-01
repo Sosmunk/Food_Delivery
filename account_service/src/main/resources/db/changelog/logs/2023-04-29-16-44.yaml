@@ -28,6 +28,11 @@ databaseChangeLog:
               - column:
                   name: "phone"
                   type: varchar
+              - column:
+                  name: "password"
+                  type: varchar
+                  constraints:
+                    nullable: false
 #              - column:
 #                  name: "loyalty_card_id"
 #                  type: serial
