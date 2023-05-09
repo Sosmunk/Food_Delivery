@@ -8,11 +8,8 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Builder
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "t_order")
 public class Order {
     @Id
@@ -20,14 +17,14 @@ public class Order {
     @Column(name = "order_id")
     private UUID orderId;
 
-//    @ManyToOne
-//    @JoinColumn("account_id")
-//    private Account account;
-
     @OneToMany(mappedBy = "order")
     private List<OrderMenuItem> orderMenuItems;
 
     @OneToOne(mappedBy = "order")
     private OrderStatus orderStatus;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 }

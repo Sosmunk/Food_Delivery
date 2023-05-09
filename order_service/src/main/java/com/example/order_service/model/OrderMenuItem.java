@@ -1,11 +1,19 @@
 package com.example.order_service.model;
 
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 // Конкретное блюдо в заказе
 @Entity
+@Data
+@Builder
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "t_order_menu_item")
 public class OrderMenuItem {
 
@@ -22,5 +30,5 @@ public class OrderMenuItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int quantity;
+    private Integer quantity;
 }
