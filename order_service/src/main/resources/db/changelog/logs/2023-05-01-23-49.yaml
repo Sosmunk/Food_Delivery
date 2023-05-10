@@ -1,16 +1,21 @@
 databaseChangeLog:
   - changeSet:
-      id: 3
+      id: 1
       author: "Sosmunk"
       changes:
+        - createSequence:
+            sequenceName: "hibernate_sequence"
+            startValue: 1
+            incrementBy: 1
         - createTable:
             tableName: "t_address"
             columns:
               - column:
                   name: "address_id"
-                  type: uuid
+                  type: bigint
                   constraints:
-                    foreignKeyName: "fk_address_order"
+                    primaryKey: true
+                    nullable: false
               - column:
                   name: "city"
                   type: varchar
@@ -18,6 +23,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: "district"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "street"
                   type: varchar
                   constraints:
                     nullable: false

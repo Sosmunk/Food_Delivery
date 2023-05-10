@@ -5,7 +5,7 @@ import com.example.order_service.dto.AddressDTO;
 import com.example.order_service.dto.MenuItemDTO;
 import com.example.order_service.dto.OrderMenuItemDTO;
 import com.example.order_service.dto.request.OrderRequest;
-import com.example.order_service.enumerable.orderStatusValue;
+import com.example.order_service.enumerable.OrderStatus;
 import com.example.order_service.model.*;
 import com.example.order_service.repository.MenuItemRepository;
 import lombok.AccessLevel;
@@ -25,7 +25,7 @@ public class OrderFactory {
                 .stream()
                 .map(orderMenuItemDTO -> createOrderMenuItemFrom(orderMenuItemDTO, order))
                 .toList());
-        order.setOrderStatus(createPreparingOrderStatus(order));
+        order.setOrderStatus(OrderStatus.PREPARING);
 
         return order;
     }
@@ -40,13 +40,6 @@ public class OrderFactory {
 
     public MenuItem createMenuItemFrom(MenuItemDTO menuItemDTO) {
         return menuItemRepository.findMenuItemByName(menuItemDTO.getName());
-    }
-
-    public static OrderStatus createPreparingOrderStatus(Order order) {
-        return OrderStatus.builder()
-                .orderStatusValue(orderStatusValue.PREPARING)
-                .order(order)
-                .build();
     }
 
     public static Address createAddressFrom(AddressDTO addressDTO) {

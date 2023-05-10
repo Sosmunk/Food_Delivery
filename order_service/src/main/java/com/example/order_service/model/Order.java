@@ -1,5 +1,6 @@
 package com.example.order_service.model;
 
+import com.example.order_service.enumerable.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -17,11 +18,10 @@ public class Order {
     @Column(name = "order_id")
     private UUID orderId;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderMenuItem> orderMenuItems;
-
-    @OneToOne(mappedBy = "order")
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     @OneToOne(cascade = CascadeType.ALL)

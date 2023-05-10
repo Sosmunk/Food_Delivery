@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 // Конкретное блюдо в заказе
 @Entity
-@Data
 @Builder
 @Setter
 @Getter
@@ -19,9 +17,10 @@ import java.util.UUID;
 public class OrderMenuItem {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @Column(name = "order_menu_item_id")
-    private UUID orderMenuItemId;
+    private Long orderMenuItemId;
 
     @ManyToOne
     @JoinColumn(name = "menu_item_id")

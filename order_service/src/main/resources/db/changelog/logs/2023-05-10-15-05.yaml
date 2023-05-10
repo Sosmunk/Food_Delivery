@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 3
+      id: 2
       author: "Sosmunk"
       changes:
         - createTable:
@@ -8,7 +8,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: "menu_item_id"
-                  type: uuid
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
               - column:
                   name: "name"
                   type: varchar
@@ -20,7 +23,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: "menu_item_id"
-                  value: "123e4567-e89b-12d3-a456-426614174000"
+                  value: "123"
               - column:
                   name: "name"
                   value: "cabbage"

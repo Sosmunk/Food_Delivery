@@ -2,20 +2,22 @@ package com.example.order_service.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Table(name = "t_menu_item")
 public class MenuItem {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @Column(name = "menu_item_id")
-    UUID menuItemId;
+    Long menuItemId;
     String name;
     Integer price;
 }

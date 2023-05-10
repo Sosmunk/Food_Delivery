@@ -5,10 +5,8 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Entity
-@Data
 @Builder
 @Setter
 @Getter
@@ -18,9 +16,10 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @Column(name = "address_id")
-    private UUID addressId;
+    private Long addressId;
 
     @NotNull
     private String city;

@@ -1,7 +1,7 @@
 package com.example.order_service.enumerable;
 
 
-public enum orderStatusValue {
+public enum OrderStatus {
     CREATED,
     PAID,
     PREPARING,

@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: "Sosmunk"
+      changes:
+        - createTable:
+            tableName: "t_order"
+            columns:
+              - column:
+                  name: "order_id"
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name : "address_id"
+                  type: bigint
+                  constraints:
+                    nullable : false
+                    foreignKeyName: fk_order_address
+                    references: t_address(address_id)
+              - column:
+                  name : "order_status"
+                  type: varchar
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: "t_order_menu_item"
+            columns:
+              - column:
+                  name: "order_menu_item_id"
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: "menu_item_id"
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: "fk_order_menu_item_menu_item"
+                    references: t_menu_item(menu_item_id)
+              - column:
+                  name: "quantity"
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "order_id"
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: "fk_order_menu_item_order"
+                    references: t_order(order_id)
+
