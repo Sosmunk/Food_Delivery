@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: "Sosmunk"
+      changes:
+        - createTable:
+            tableName: "t_menu_item"
+            columns:
+              - column:
+                  name: "menu_item_id"
+                  type: uuid
+              - column:
+                  name: "name"
+                  type: varchar
+              - column:
+                  name: price
+                  type: integer
+        - insert:
+            tableName: "t_menu_item"
+            columns:
+              - column:
+                  name: "menu_item_id"
+                  value: "123e4567-e89b-12d3-a456-426614174000"
+              - column:
+                  name: "name"
+                  value: "cabbage"
+              - column:
+                  name : "price"
+                  value : "123"

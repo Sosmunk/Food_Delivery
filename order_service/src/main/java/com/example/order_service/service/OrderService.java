@@ -13,7 +13,9 @@ public class OrderService {
 
     public String placeOrder(OrderRequest orderRequest) {
         Order order = orderFactory.createOrderFrom(orderRequest);
-        return "ok not saved" + order.getOrderMenuItems();
+        // TODO: fix stackoverflow error
+        System.out.println(order);
+        return "ok not saved";
     }
 
 }

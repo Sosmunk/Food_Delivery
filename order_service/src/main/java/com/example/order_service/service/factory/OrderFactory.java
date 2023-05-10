@@ -1,14 +1,12 @@
 package com.example.order_service.service.factory;
 
 
+import com.example.order_service.dto.AddressDTO;
 import com.example.order_service.dto.MenuItemDTO;
 import com.example.order_service.dto.OrderMenuItemDTO;
 import com.example.order_service.dto.request.OrderRequest;
 import com.example.order_service.enumerable.orderStatusValue;
-import com.example.order_service.model.MenuItem;
-import com.example.order_service.model.Order;
-import com.example.order_service.model.OrderMenuItem;
-import com.example.order_service.model.OrderStatus;
+import com.example.order_service.model.*;
 import com.example.order_service.repository.MenuItemRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,7 @@ public class OrderFactory {
     MenuItemRepository menuItemRepository;
     public Order createOrderFrom(OrderRequest request) {
         Order order = new Order();
-        order.setAddress(request.getAddress());
+        order.setAddress(createAddressFrom(request.getAddressDTO()));
         order.setOrderMenuItems(request.getOrderMenuItemDTOs()
                 .stream()
                 .map(orderMenuItemDTO -> createOrderMenuItemFrom(orderMenuItemDTO, order))
@@ -49,5 +47,17 @@ public class OrderFactory {
                 .orderStatusValue(orderStatusValue.PREPARING)
                 .order(order)
                 .build();
+    }
+
+    public static Address createAddressFrom(AddressDTO addressDTO) {
+        return Address.builder()
+                .city(addressDTO.getCity())
+                .street(addressDTO.getStreet())
+                .district(addressDTO.getDistrict())
+                .houseNumber(addressDTO.getHouseNumber())
+                .houseNumberLiteral(addressDTO.getHouseNumberLiteral())
+                .apartmentNumber(addressDTO.getApartmentNumber())
+                .build();
+
     }
 }

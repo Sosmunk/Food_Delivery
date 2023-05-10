@@ -1,11 +1,11 @@
 package com.example.order_service.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
-
 @Entity
 @Data
 @Setter
@@ -18,6 +18,7 @@ public class Order {
     private UUID orderId;
 
     @OneToMany(mappedBy = "order")
+    @JsonManagedReference
     private List<OrderMenuItem> orderMenuItems;
 
     @OneToOne(mappedBy = "order")
