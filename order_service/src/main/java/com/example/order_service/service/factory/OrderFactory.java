@@ -25,7 +25,7 @@ public class OrderFactory {
                 .stream()
                 .map(orderMenuItemDTO -> createOrderMenuItemFrom(orderMenuItemDTO, order))
                 .toList());
-        order.setOrderStatus(OrderStatus.PREPARING);
+        order.setOrderStatus(OrderStatus.CREATED);
 
         return order;
     }
