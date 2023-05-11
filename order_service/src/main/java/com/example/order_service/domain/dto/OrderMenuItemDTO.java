@@ -1,4 +1,4 @@
-package com.example.order_service.dto;
+package com.example.order_service.domain.dto;
 
 import lombok.Value;
 

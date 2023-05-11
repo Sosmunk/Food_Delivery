@@ -1,12 +1,15 @@
 package com.example.order_service.service.factory;
 
 
-import com.example.order_service.dto.AddressDTO;
-import com.example.order_service.dto.MenuItemDTO;
-import com.example.order_service.dto.OrderMenuItemDTO;
-import com.example.order_service.dto.request.OrderRequest;
-import com.example.order_service.enumerable.OrderStatus;
-import com.example.order_service.model.*;
+import com.example.order_service.domain.dto.AddressDTO;
+import com.example.order_service.domain.dto.MenuItemDTO;
+import com.example.order_service.domain.dto.OrderMenuItemDTO;
+import com.example.order_service.domain.dto.request.OrderRequest;
+import com.example.order_service.domain.entity.Address;
+import com.example.order_service.domain.entity.MenuItem;
+import com.example.order_service.domain.entity.Order;
+import com.example.order_service.domain.entity.OrderMenuItem;
+import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.repository.MenuItemRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

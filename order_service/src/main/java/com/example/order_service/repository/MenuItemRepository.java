@@ -1,6 +1,6 @@
 package com.example.order_service.repository;
 
-import com.example.order_service.model.MenuItem;
+import com.example.order_service.domain.entity.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.example.order_service.dto.request;
+package com.example.order_service.domain.dto.request;
 
-import com.example.order_service.dto.AddressDTO;
-import com.example.order_service.dto.OrderMenuItemDTO;
+import com.example.order_service.domain.dto.AddressDTO;
+import com.example.order_service.domain.dto.OrderMenuItemDTO;
 import lombok.Value;
 
 import javax.validation.Valid;

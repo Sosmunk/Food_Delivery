@@ -1,8 +1,8 @@
-package com.example.order_service.controller;
+package com.example.order_service.web.controller;
 
-import com.example.order_service.dto.request.OrderRequest;
+import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.repository.MenuItemRepository;
-import com.example.order_service.service.OrderService;
+import com.example.order_service.service.impl.OrderServiceImpl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/order")
 public class OrderController {
-    OrderService orderService;
+    OrderServiceImpl orderService;
     MenuItemRepository menuItemRepository;
     @PostMapping("/post")
     public ResponseEntity<String> postOrder(@Valid @RequestBody OrderRequest orderRequest) {

@@ -1,6 +1,6 @@
-package com.example.order_service.model;
+package com.example.order_service.domain.entity;
 
-import com.example.order_service.enumerable.OrderStatus;
+import com.example.order_service.domain.enumerable.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 

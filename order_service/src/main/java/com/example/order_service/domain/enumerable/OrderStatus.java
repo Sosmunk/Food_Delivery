@@ -1,4 +1,4 @@
-package com.example.order_service.enumerable;
+package com.example.order_service.domain.enumerable;
 
 
 public enum OrderStatus {
