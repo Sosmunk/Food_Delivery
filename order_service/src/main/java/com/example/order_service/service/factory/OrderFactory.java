@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -39,7 +42,9 @@ public class OrderFactory {
     }
 
     public MenuItem createMenuItemFrom(MenuItemDTO menuItemDTO) {
-        return menuItemRepository.findMenuItemByName(menuItemDTO.getName());
+        return Optional.ofNullable(menuItemRepository.findMenuItemByName(menuItemDTO.getName()))
+                .orElseThrow(() ->
+                        new EntityNotFoundException(String.format("Продукта %s не существует", menuItemDTO.getName())));
     }
 
     public static Address createAddressFrom(AddressDTO addressDTO) {

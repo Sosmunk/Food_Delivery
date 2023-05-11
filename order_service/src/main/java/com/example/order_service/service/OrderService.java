@@ -16,7 +16,7 @@ public class OrderService {
     public String placeOrder(OrderRequest orderRequest) {
         Order order = orderFactory.createOrderFrom(orderRequest);
         orderRepository.save(order);
-        return order.toString();
+        return String.format("Заказ принят. Его идентификатор: %s", order.getOrderId().toString());
 
     }
 

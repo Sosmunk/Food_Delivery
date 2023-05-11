@@ -38,7 +38,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: "house_number_literal"
-                  type: char(1)
+                  type: varchar(1)
                   constraints:
                     nullable: true
               - column:

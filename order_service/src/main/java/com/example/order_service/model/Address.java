@@ -1,10 +1,8 @@
 package com.example.order_service.model;
 
 import lombok.*;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Builder
@@ -21,26 +19,20 @@ public class Address {
     @Column(name = "address_id")
     private Long addressId;
 
-    @NotNull
     private String city;
 
     // Район проживания
-    @NotNull
     private String district;
 
-    @NotNull
     private String street;
 
-    @NotNull
-    private int houseNumber;
+    private Integer houseNumber;
 
     /**
      * Буква номера дома (А, Б, В...)
      */
-    @Nullable
-    private char houseNumberLiteral;
+    private String houseNumberLiteral;
 
-    @NotNull
-    private int apartmentNumber;
+    private Integer apartmentNumber;
 
 }
