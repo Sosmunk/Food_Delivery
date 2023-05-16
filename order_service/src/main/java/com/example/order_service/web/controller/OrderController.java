@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -28,6 +29,7 @@ public class OrderController {
 
     @PostMapping("/post")
     @LogMethodExecution
+    @Transactional
     public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest orderRequest) {
         OrderResponse response = orderService.placeOrder(orderRequest);
         orderMetric.incrementOrderCounter();
@@ -37,4 +39,5 @@ public class OrderController {
     public String getCabbage() {
         return menuItemRepository.findMenuItemByName("cabbage").toString();
     }
+
 }
