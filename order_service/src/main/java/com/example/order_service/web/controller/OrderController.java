@@ -1,5 +1,6 @@
 package com.example.order_service.web.controller;
 
+import com.example.order_service.common.annotation.LogMethodExecution;
 import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.metrics.OrderMetric;
@@ -26,8 +27,8 @@ public class OrderController {
     OrderMetric orderMetric;
 
     @PostMapping("/post")
+    @LogMethodExecution
     public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        log.info("Поступил запрос на заказ");
         OrderResponse response = orderService.placeOrder(orderRequest);
         orderMetric.incrementOrderCounter();
         return new ResponseEntity<>(response, HttpStatus.OK);
