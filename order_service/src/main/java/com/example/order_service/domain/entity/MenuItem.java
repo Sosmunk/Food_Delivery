@@ -1,6 +1,5 @@
 package com.example.order_service.domain.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
