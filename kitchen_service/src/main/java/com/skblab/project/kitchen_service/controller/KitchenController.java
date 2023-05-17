@@ -15,12 +15,6 @@ import java.util.UUID;
 public class KitchenController {
     private final KitchenService kitchenService;
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<OrderPaidEvent> getAllOrders() {
-        return kitchenService.getAllOrders();
-    }
-
     @PatchMapping("/{order_id}/is_preparing")
     @ResponseStatus(HttpStatus.OK)
     public void changeOrderStatusToIsPreparing(@PathVariable("order_id") UUID orderId) {
