@@ -19,3 +19,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+jwt:
+  access_token_validity: 600
+  refresh_token_validity: 10800
+  access_secret: 3gFlvKIR783
+  refresh_secret: 3gFlvKIR783

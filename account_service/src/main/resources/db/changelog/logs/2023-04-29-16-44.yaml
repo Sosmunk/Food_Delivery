@@ -28,6 +28,8 @@ databaseChangeLog:
               - column:
                   name: "phone"
                   type: varchar
+                  constraints:
+                    nullable: false
               - column:
                   name: "password"
                   type: varchar
@@ -36,8 +38,9 @@ databaseChangeLog:
               - column:
                   name: "enabled"
                   type: boolean
-                  constraints:
-                    nullable: false
+              - column:
+                  name: "role"
+                  type: varchar
 #              - column:
 #                  name: "loyalty_card_id"
 #                  type: serial

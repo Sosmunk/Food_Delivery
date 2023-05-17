@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,11 +28,18 @@ public class Account {
     @NotNull
     private String surname;
 
+    @NotNull
+    private String password;
+
     @Email
     private String email;
 
+    @NotNull
     private String phone;
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private LoyaltyCard loyaltyCard;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

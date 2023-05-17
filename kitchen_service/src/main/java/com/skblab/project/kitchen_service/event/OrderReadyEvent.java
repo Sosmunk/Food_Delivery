@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @Getter
 @Setter
 public class OrderReadyEvent {
-    Long orderId;
+    UUID orderId;
 }

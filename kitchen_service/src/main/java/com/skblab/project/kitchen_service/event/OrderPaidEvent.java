@@ -1,14 +1,24 @@
 package com.skblab.project.kitchen_service.event;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @Getter
 @Setter
+@Value
 public class OrderPaidEvent {
-    Long orderId;
+    UUID orderId;
+
+    List<OrderMenuItem> orderMenuItems;
+
+    @Value
+    public static class OrderMenuItem {
+        Long itemId;
+        String name;
+        int quantity;
+    }
 }
