@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.getOrderByOrderId(uuid);
         order.setOrderStatus(orderStatus);
         eventPublisher.publishEvent(OrderStatusChangedEvent.from(order));
-        orderRepository.save(order);
     }
     @Scheduled(initialDelay = 10000, fixedRate = 60000)
     public void getNotFinishedOrderCount() {
