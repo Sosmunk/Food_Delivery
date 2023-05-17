@@ -18,6 +18,7 @@ public class Order {
     @Column(name = "order_id")
     private UUID orderId;
 
+    private UUID accountId;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderMenuItem> orderMenuItems;

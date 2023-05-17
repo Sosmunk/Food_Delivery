@@ -2,6 +2,7 @@ package com.example.order_service.service.factory;
 
 
 import com.example.order_service.domain.dto.AddressDTO;
+import com.example.order_service.domain.dto.KitchenOrderDTO;
 import com.example.order_service.domain.dto.MenuItemDTO;
 import com.example.order_service.domain.dto.OrderMenuItemDTO;
 import com.example.order_service.domain.dto.request.OrderRequest;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +35,8 @@ public class OrderFactory {
                 .map(orderMenuItemDTO -> createOrderMenuItemFrom(orderMenuItemDTO, order))
                 .toList());
         order.setOrderStatus(OrderStatus.CREATED);
+        //stub
+        order.setAccountId(UUID.randomUUID());
 
         return order;
     }
@@ -70,6 +74,12 @@ public class OrderFactory {
                 order.getAddress());
     }
 
+    public KitchenOrderDTO createKitchenOrderDtoFrom(Order order) {
+        return new KitchenOrderDTO(order.getOrderId(), order.getOrderMenuItems()
+                .stream()
+                .map(this::createKitchenOrderMenuItem).toList());
+    }
+
     public OrderResponse.OrderMenuItemInfo createOrderMenuItemInfo(OrderMenuItem orderMenuItem) {
         return new OrderResponse.OrderMenuItemInfo(createMenuItemInfo(orderMenuItem.getMenuItem()),
                 orderMenuItem.getQuantity());
@@ -77,5 +87,11 @@ public class OrderFactory {
 
     public OrderResponse.OrderMenuItemInfo.MenuItemInfo createMenuItemInfo(MenuItem menuItem) {
         return new OrderResponse.OrderMenuItemInfo.MenuItemInfo(menuItem.getName(), menuItem.getPrice());
+    }
+
+    public KitchenOrderDTO.OrderMenuItem createKitchenOrderMenuItem(OrderMenuItem orderMenuItem) {
+        return new KitchenOrderDTO.OrderMenuItem(orderMenuItem.getOrderMenuItemId(),
+                orderMenuItem.getMenuItem().getName(),
+                orderMenuItem.getQuantity());
     }
 }

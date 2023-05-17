@@ -8,16 +8,14 @@ import java.util.UUID;
 @Value
 public class KitchenOrderDTO {
 
-    UUID uuid;
+    UUID orderId;
 
     @Value
     public static class OrderMenuItem {
-        Long id;
-
+        Long itemId;
         String name;
-
         Integer quantity;
     }
-
     List<OrderMenuItem> orderMenuItems;
+
 }

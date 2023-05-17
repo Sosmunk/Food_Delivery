@@ -18,15 +18,19 @@ databaseChangeLog:
               - column:
                   name: price
                   type: integer
-        - insert:
-            tableName: "t_menu_item"
-            columns:
-              - column:
-                  name: "menu_item_id"
-                  value: "123"
-              - column:
-                  name: "name"
-                  value: "cabbage"
-              - column:
-                  name : "price"
-                  value : "123"
+#        - insert:
+#            tableName: "t_menu_item"
+#            columns:
+#              - column:
+#                  name: "menu_item_id"
+#                  value: "123"
+#              - column:
+#                  name: "name"
+#                  value: "cabbage"
+#              - column:
+#                  name : "price"
+#                  value : "123"
+        - sql:
+            sql: insert into t_menu_item values(nextval('hibernate_sequence'), 'tomato', 100)
+        - sql:
+            sql: insert into t_menu_item values(nextval('hibernate_sequence'), 'cabbage', 100)
