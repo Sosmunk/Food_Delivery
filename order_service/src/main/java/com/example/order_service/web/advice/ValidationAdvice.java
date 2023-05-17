@@ -1,5 +1,6 @@
 package com.example.order_service.web.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 
 @ControllerAdvice
+@Slf4j
 public class ValidationAdvice extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
@@ -22,6 +24,7 @@ public class ValidationAdvice extends ResponseEntityExceptionHandler {
         exception.getBindingResult().getAllErrors().forEach(error ->{
             String message = error.getDefaultMessage();
             errors.add(message);
+            log.error("Ошибки в полях заказа: {}", errors);
         });
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);

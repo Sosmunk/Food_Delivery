@@ -5,6 +5,7 @@ import com.example.order_service.domain.dto.AddressDTO;
 import com.example.order_service.domain.dto.MenuItemDTO;
 import com.example.order_service.domain.dto.OrderMenuItemDTO;
 import com.example.order_service.domain.dto.request.OrderRequest;
+import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.domain.entity.Address;
 import com.example.order_service.domain.entity.MenuItem;
 import com.example.order_service.domain.entity.Order;
@@ -60,5 +61,21 @@ public class OrderFactory {
                 .apartmentNumber(addressDTO.getApartmentNumber())
                 .build();
 
+    }
+
+    public OrderResponse createOrderResponseFrom(Order order) {
+        return new OrderResponse(order.getOrderId(),
+                order.getOrderMenuItems().stream().map(this::createOrderMenuItemInfo).toList(),
+                order.getOrderStatus(),
+                order.getAddress());
+    }
+
+    public OrderResponse.OrderMenuItemInfo createOrderMenuItemInfo(OrderMenuItem orderMenuItem) {
+        return new OrderResponse.OrderMenuItemInfo(createMenuItemInfo(orderMenuItem.getMenuItem()),
+                orderMenuItem.getQuantity());
+    }
+
+    public OrderResponse.OrderMenuItemInfo.MenuItemInfo createMenuItemInfo(MenuItem menuItem) {
+        return new OrderResponse.OrderMenuItemInfo.MenuItemInfo(menuItem.getName(), menuItem.getPrice());
     }
 }

@@ -9,8 +9,8 @@ import javax.persistence.*;
 // Конкретное блюдо в заказе
 @Entity
 @Builder
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "t_order_menu_item")
@@ -27,9 +27,12 @@ public class OrderMenuItem {
     private MenuItem menuItem;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "order_id")
     private Order order;
+    @JsonBackReference
+    public Order getOrder() {
+        return order;
+    }
 
     private Integer quantity;
 }
