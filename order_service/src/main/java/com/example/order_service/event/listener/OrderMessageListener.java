@@ -1,5 +1,7 @@
 package com.example.order_service.event.listener;
 
+import com.example.order_service.domain.enumerable.OrderStatus;
+import com.example.order_service.event.OrderPreparingEvent;
 import com.example.order_service.event.OrderReadyEvent;
 import com.example.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,18 @@ public class OrderMessageListener {
     public void handleReadyOrder(OrderReadyEvent event) {
         try {
             orderService.processReadyOrder(event.getOrderId());
+        }
+        catch (Exception ex){
+            log.error(ex);
+        }
+
+    }
+
+    @RabbitListener(queues = "is_preparing_order_queue")
+    public void handlePreparingOrder(OrderPreparingEvent event) {
+        try {
+            log.info("preparing");
+            orderService.changeOrderStatus(event.getOrderId(), OrderStatus.PREPARING);
         }
         catch (Exception ex){
             log.error(ex);
