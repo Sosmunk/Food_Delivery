@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class OrderInDeliveryEvent {
-    Long orderId;
+    UUID orderId;
     UUID courierId;
     String name;
     String phone;

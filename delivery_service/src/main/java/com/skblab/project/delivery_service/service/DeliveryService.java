@@ -17,7 +17,7 @@ public class DeliveryService {
     private final DeliveryEventPub deliveryEventPub;
     private final CourierService courierService;
 
-    public void changeOrderStatusToInDelivery(Long orderId) {
+    public void changeOrderStatusToInDelivery(UUID orderId) {
         Courier choosenCourier = courierService.getAvailableCourier();
         OrderInDeliveryEvent event = OrderInDeliveryEvent.builder()
             .orderId(orderId)
@@ -29,7 +29,7 @@ public class DeliveryService {
         choosenCourier.setIsAvailable(false);
     }
 
-    public void changeOrderStatusToDelivered(Long orderId) {
+    public void changeOrderStatusToDelivered(UUID orderId) {
         OrderDeliveredEvent deliveredEvent = OrderDeliveredEvent.builder()
                 .orderId(orderId)
                 .deliveryEndTimestamp(new Timestamp(System.currentTimeMillis()))

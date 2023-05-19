@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Data
 @Builder
 @Getter
 @Setter
 public class OrderDeliveredEvent {
-    Long orderId;
+    UUID orderId;
     Timestamp deliveryEndTimestamp;
 }

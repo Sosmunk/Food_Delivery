@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface CourierRepository extends JpaRepository<Courier, UUID> {
     Courier findFirstByIsAvailable(Boolean isAvailable);
-    Courier findCourierByOrderId(Long orderId);
+    Courier findCourierByOrderId(UUID orderId);
 }
