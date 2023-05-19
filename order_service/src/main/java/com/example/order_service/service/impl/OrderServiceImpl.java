@@ -1,12 +1,14 @@
 package com.example.order_service.service.impl;
 
 import com.example.order_service.common.annotation.LogMethodExecution;
+import com.example.order_service.domain.dto.DeliveryOrderDTO;
 import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.event.OrderPlacedEvent;
 import com.example.order_service.event.OrderStatusChangedEvent;
+import com.example.order_service.event.publisher.OrderMessagePublisher;
 import com.example.order_service.repository.OrderRepository;
 import com.example.order_service.service.OrderService;
 import com.example.order_service.service.factory.OrderFactory;
@@ -21,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     OrderFactory orderFactory;
     OrderRepository orderRepository;
     ApplicationEventPublisher eventPublisher;
+    OrderMessagePublisher messagePublisher;
     JdbcTemplate jdbcTemplate;
 
     @LogMethodExecution
@@ -43,12 +48,20 @@ public class OrderServiceImpl implements OrderService {
         return orderFactory.createOrderResponseFrom(order);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public void changeOrderStatus(UUID uuid, OrderStatus orderStatus) {
-        Order order = orderRepository.getOrderByOrderId(uuid);
+        Order order = Optional.ofNullable(orderRepository.getOrderByOrderId(uuid)).orElseThrow(EntityNotFoundException::new);
         order.setOrderStatus(orderStatus);
         eventPublisher.publishEvent(OrderStatusChangedEvent.from(order));
     }
+    @Transactional
+    public void processReadyOrder(UUID orderId) {
+        changeOrderStatus(orderId, OrderStatus.READY);
+        Order order = orderRepository.getOrderByOrderId(orderId);
+        DeliveryOrderDTO deliveryOrderDTO = orderFactory.createDeliveryOrderDTOFrom(order);
+        messagePublisher.sendReadyOrderToDelivery(deliveryOrderDTO);
+    }
+
     @Scheduled(initialDelay = 10000, fixedRate = 60000)
     public void getNotFinishedOrderCount() {
         String tableName = "t_order";

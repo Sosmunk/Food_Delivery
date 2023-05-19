@@ -1,10 +1,7 @@
 package com.example.order_service.service.factory;
 
 
-import com.example.order_service.domain.dto.AddressDTO;
-import com.example.order_service.domain.dto.KitchenOrderDTO;
-import com.example.order_service.domain.dto.MenuItemDTO;
-import com.example.order_service.domain.dto.OrderMenuItemDTO;
+import com.example.order_service.domain.dto.*;
 import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.domain.entity.Address;
@@ -93,5 +90,20 @@ public class OrderFactory {
         return new KitchenOrderDTO.OrderMenuItem(orderMenuItem.getOrderMenuItemId(),
                 orderMenuItem.getMenuItem().getName(),
                 orderMenuItem.getQuantity());
+    }
+
+    public DeliveryOrderDTO.Address createDeliveryAddress(Address address) {
+        return DeliveryOrderDTO.Address.builder()
+                .city(address.getCity())
+                .district(address.getDistrict())
+                .street(address.getStreet())
+                .houseNumber(address.getHouseNumber())
+                .houseNumberLiteral(address.getHouseNumberLiteral())
+                .apartmentNumber(address.getApartmentNumber())
+                .build();
+    }
+
+    public DeliveryOrderDTO createDeliveryOrderDTOFrom(Order order) {
+        return new DeliveryOrderDTO(order.getOrderId(), createDeliveryAddress(order.getAddress()));
     }
 }

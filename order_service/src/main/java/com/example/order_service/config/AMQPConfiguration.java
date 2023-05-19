@@ -51,6 +51,39 @@ public class AMQPConfiguration {
     }
 
     @Bean
+    public Queue inDeliveryOrderQueue() {
+        log.info("In delivery order created");
+        return new Queue("in_delivery_order_queue", true);
+    }
+
+    @Bean
+    public Queue deliveredOrderQueue() {
+        log.info("Delivered order created");
+        return new Queue("delivered_order_queue", true);
+    }
+
+    @Bean
+    public Queue toDeliveryOrderQueue() {
+        log.info("To delivery order created");
+        return new Queue("to_delivery_order_queue", true);
+    }
+
+    @Bean
+    public Binding inDeliveryOrderBinding(DirectExchange orderDirectExchange, Queue inDeliveryOrderQueue) {
+        return BindingBuilder.bind(inDeliveryOrderQueue).to(orderDirectExchange).with("order.in_delivery");
+    }
+
+    @Bean
+    public Binding toDeliveryOrderBinding(DirectExchange orderDirectExchange, Queue toDeliveryOrderQueue) {
+        return BindingBuilder.bind(toDeliveryOrderQueue).to(orderDirectExchange).with("order.to_delivery");
+    }
+
+    @Bean
+    public Binding deliveredOrderBinding(DirectExchange orderDirectExchange, Queue deliveredOrderQueue) {
+        return BindingBuilder.bind(deliveredOrderQueue).to(orderDirectExchange).with("order.delivered");
+    }
+
+    @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
     }

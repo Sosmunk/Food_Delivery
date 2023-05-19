@@ -10,4 +10,6 @@ public interface OrderService {
     OrderResponse placeOrder(OrderRequest orderRequest);
 
     void changeOrderStatus(UUID uuid, OrderStatus orderStatus);
+
+    void processReadyOrder(UUID orderId);
 }
