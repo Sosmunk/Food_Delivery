@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class OrderReadyHandler {
     private final DeliveryService deliveryService;
 
-    @RabbitListener(queues = "paid_order_queue")
+    @RabbitListener(queues = "to_delivery_order_queue")
     public void handleOrderReady(OrderReadyEvent event) {
         deliveryService.changeOrderStatusToInDelivery(event.getOrderId());
     }
