@@ -9,7 +9,7 @@ import java.util.UUID;
 @Value
 public class OrderStatusChangedEvent {
 
-    UUID uuid;
+    UUID orderId;
 
     OrderStatus orderStatus;
 
