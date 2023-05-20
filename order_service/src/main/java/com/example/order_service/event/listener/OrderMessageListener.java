@@ -21,10 +21,9 @@ public class OrderMessageListener {
         try {
             orderService.processReadyOrder(event.getOrderId());
         }
-        catch (Exception ex){
+        catch (Exception ex) {
             log.error(ex);
         }
-
     }
 
     @RabbitListener(queues = "is_preparing_order_queue")
@@ -35,6 +34,18 @@ public class OrderMessageListener {
         catch (Exception ex){
             log.error(ex);
         }
-
     }
+
+    // TODO: change order status when delivery service responds
+
+//    @RabbitListener(queues = "in_delivery_order_queue")
+//    public void handleOrderInDelivery(OrderInDeliveryEvent event) {
+//
+//    }
+
+//    @RabbitListener(queues= "delivered_order_queue")
+//    public void handleOrderDelivered(OrderDelivered event) {
+//
+//    }
+
 }
