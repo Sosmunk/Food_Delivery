@@ -30,7 +30,6 @@ public class OrderMessageListener {
     @RabbitListener(queues = "is_preparing_order_queue")
     public void handlePreparingOrder(OrderPreparingEvent event) {
         try {
-            log.info("preparing");
             orderService.changeOrderStatus(event.getOrderId(), OrderStatus.PREPARING);
         }
         catch (Exception ex){
