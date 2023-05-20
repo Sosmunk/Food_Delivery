@@ -1,6 +1,7 @@
 package com.example.order_service.event.listener;
 
 import com.example.order_service.domain.enumerable.OrderStatus;
+import com.example.order_service.event.OrderInDeliveryEvent;
 import com.example.order_service.event.OrderPreparingEvent;
 import com.example.order_service.event.OrderReadyEvent;
 import com.example.order_service.service.OrderService;
@@ -18,30 +19,20 @@ public class OrderMessageListener {
 
     @RabbitListener(queues = "ready_order_queue")
     public void handleReadyOrder(OrderReadyEvent event) {
-        try {
-            orderService.processReadyOrder(event.getOrderId());
-        }
-        catch (Exception ex) {
-            log.error(ex);
-        }
+        orderService.processReadyOrder(event.getOrderId());
     }
 
     @RabbitListener(queues = "is_preparing_order_queue")
     public void handlePreparingOrder(OrderPreparingEvent event) {
-        try {
-            orderService.changeOrderStatus(event.getOrderId(), OrderStatus.PREPARING);
-        }
-        catch (Exception ex){
-            log.error(ex);
-        }
+        orderService.changeOrderStatus(event.getOrderId(), OrderStatus.PREPARING);
     }
 
-    // TODO: change order status when delivery service responds
+    @RabbitListener(queues = "in_delivery_order_queue")
+    public void handleOrderInDelivery(OrderInDeliveryEvent event) {
+        orderService.changeOrderStatus(event.getOrderId(), OrderStatus.IN_DELIVERY);
+    }
 
-//    @RabbitListener(queues = "in_delivery_order_queue")
-//    public void handleOrderInDelivery(OrderInDeliveryEvent event) {
-//
-//    }
+    // TODO
 
 //    @RabbitListener(queues= "delivered_order_queue")
 //    public void handleOrderDelivered(OrderDelivered event) {

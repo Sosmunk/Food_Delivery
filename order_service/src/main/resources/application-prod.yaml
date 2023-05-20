@@ -21,5 +21,10 @@ spring:
     enabled: true
     contexts: prod
 
+  rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false
+
 jwt:
   access_secret: 3gFlvKIR783

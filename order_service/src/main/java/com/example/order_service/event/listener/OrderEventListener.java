@@ -33,6 +33,6 @@ public class OrderEventListener {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void logOrderStatusChanged(OrderStatusChangedEvent event) {
-        log.info("Статус заказа с id {} изменен на {}", event.getOrderId(), event.getOrderStatus());
+        log.info("Статус заказа {} изменен на {}", event.getOrderId(), event.getOrderStatus());
     }
 }

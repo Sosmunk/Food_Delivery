@@ -22,9 +22,15 @@ spring:
     contexts: prod
     drop-first: true
 
+  rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false
+
 logging:
   level:
     sql: debug
 
 jwt:
   access_secret: 3gFlvKIR783
+
