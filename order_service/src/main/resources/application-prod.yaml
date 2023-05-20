@@ -20,3 +20,6 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
     contexts: prod
+
+jwt:
+  access_secret: 3gFlvKIR783

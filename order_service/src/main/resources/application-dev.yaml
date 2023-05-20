@@ -25,3 +25,6 @@ spring:
 logging:
   level:
     sql: debug
+
+jwt:
+  access_secret: 3gFlvKIR783

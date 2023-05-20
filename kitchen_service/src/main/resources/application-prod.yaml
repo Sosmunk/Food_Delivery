@@ -17,3 +17,6 @@ spring:
 
 server:
   port: ${SERVER_PORT:8082}
+
+jwt:
+  access_secret: 3gFlvKIR783
