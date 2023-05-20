@@ -9,6 +9,7 @@ import com.skblab.project.account_service.model.LoyaltyLevel;
 import com.skblab.project.account_service.repository.AccountRepository;
 import com.skblab.project.account_service.repository.LoyaltyCardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Log4j2
 public class LoyaltyCardService {
     private final LoyaltyCardRepository loyaltyCardRepository;
     private final AccountRepository accountRepository;
@@ -68,7 +70,7 @@ public class LoyaltyCardService {
         LoyaltyCard loyaltyCard = loyaltyCardRepository.findById(event.getAccountId())
                 .orElseThrow(EntityNotFoundException::new);
         if (event.getSpentBonuses() > loyaltyCard.getBonuses()) {
-            System.out.println("Бонусов накарте меньше, чем использовано в платеже");
+            log.error("Бонусов на карте меньше, чем использовано в платеже");
         } else {
             loyaltyCard.setAccumulatedAmount(loyaltyCard.getAccumulatedAmount() + event.getOrderPrice());
             loyaltyCard.setBonuses((int)(loyaltyCard.getBonuses() +

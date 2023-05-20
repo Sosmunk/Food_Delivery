@@ -6,8 +6,6 @@ import javax.validation.constraints.*;
 
 @Data
 @Builder
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountRequest {

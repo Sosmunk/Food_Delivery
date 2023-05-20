@@ -3,17 +3,16 @@ package com.skblab.project.account_service.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Data
 @Builder
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "t_loyalty_card")
-public class LoyaltyCard {
+public class LoyaltyCard implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "card_id")

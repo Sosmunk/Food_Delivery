@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtRequest {
-    private String phone;
-    private String password;
+public class AuthResponse {
+
+    private String token;
+
 }

@@ -1,15 +1,11 @@
 package com.skblab.project.account_service.controller;
 
-import com.skblab.project.account_service.dto.AccountRequest;
 import com.skblab.project.account_service.dto.AccountResponse;
 import com.skblab.project.account_service.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,12 +34,6 @@ public class AccountController {
     @ResponseBody
     public AccountResponse getAccountByPhone(@PathVariable("account_phone") String phone) {
         return accountService.getAccountByPhone(phone);
-    }
-
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> createAccount(@RequestBody @Valid AccountRequest request) {
-        return accountService.createAccount(request);
     }
 
     @DeleteMapping("/{account_id}")

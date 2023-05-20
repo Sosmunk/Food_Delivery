@@ -1,9 +1,11 @@
 package com.skblab.project.account_service.model;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 @RequiredArgsConstructor
+@Getter
 public enum Role implements GrantedAuthority {
 
     CUSTOMER("Покупатель"),

@@ -1,12 +1,10 @@
 package com.skblab.project.account_service.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Builder
-@Getter
+@Data
 public class JwtResponse {
-    private final String type = "Bearer";
+    private static final String type = "Bearer";
     private String accessToken;
     private String refreshToken;
 }
