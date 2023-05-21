@@ -1,6 +1,6 @@
 package com.skblab.project.account_service.controller;
 
-import com.skblab.project.account_service.dto.LoyaltyCardResponse;
+import com.skblab.project.account_service.dto.response.LoyaltyCardResponse;
 import com.skblab.project.account_service.service.LoyaltyCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+/**
+ * Контроллер для управления картами лояльности пользователей
+ */
 @RestController
 @RequestMapping("/api/loyalty_card")
 @RequiredArgsConstructor

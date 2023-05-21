@@ -4,16 +4,27 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
+/**
+ * <b>Сущность аккаунта</b><br>
+ * Список полей:<br>
+ * {@link Account#accountId} – <i>UUID аккаунта</i><br>
+ * {@link Account#name} – <i>Имя пользователя</i><br>
+ * {@link Account#surname} – <i>Фамилия пользователя</i><br>
+ * {@link Account#password} – <i>Пароль</i><br>
+ * {@link Account#email} – <i>Email-адрес</i><br>
+ * {@link Account#phone} – <i>Номер телефона</i><br>
+ * {@link Account#loyaltyCard} – <i>Карта лояльности</i><br>
+ * {@link Account#role} – <i>Роли</i><br>
+ * {@link Account#enabled} – <i>Доступность аккаунта</i>
+ */
 @Entity
 @Data
 @Builder

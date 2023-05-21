@@ -1,15 +1,23 @@
-package com.skblab.project.account_service.dto;
+package com.skblab.project.account_service.dto.request;
 
 import lombok.*;
 
 import javax.validation.constraints.*;
 
+/**
+ * <b>DTO для регистрации нового аккаунта</b><br>
+ * Список полей:<br>
+ * {@link AccountRequest#name} – <i>Имя пользователя</i><br>
+ * {@link AccountRequest#surname} – <i>Фамилия пользователя</i><br>
+ * {@link AccountRequest#password} – <i>Пароль</i><br>
+ * {@link AccountRequest#email} – <i>Email-адрес</i><br>
+ * {@link AccountRequest#phone} – <i>Номер телефона</i>
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountRequest {
-
     @NotBlank(message = "Имя не может быть пустым")
     @NotNull(message = "Имя не может быть пустым")
     @Size(min = 2, max = 50, message = "Имя должно содержать от 2 до 50 символов")

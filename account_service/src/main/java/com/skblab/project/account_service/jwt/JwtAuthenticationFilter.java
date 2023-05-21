@@ -1,4 +1,4 @@
-package com.skblab.project.account_service.service;
+package com.skblab.project.account_service.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * <b>Фильтр JWT-аутентификации</b>
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

@@ -1,8 +1,8 @@
 package com.skblab.project.account_service.service;
 
-import com.skblab.project.account_service.dto.AccountResponse;
-import com.skblab.project.account_service.dto.LoyaltyCardResponse;
-import com.skblab.project.account_service.event.OrderPaidEvent;
+import com.skblab.project.account_service.dto.response.AccountResponse;
+import com.skblab.project.account_service.dto.response.LoyaltyCardResponse;
+import com.skblab.project.account_service.dto.amqp.OrderPaidEvent;
 import com.skblab.project.account_service.model.Account;
 import com.skblab.project.account_service.model.LoyaltyCard;
 import com.skblab.project.account_service.model.LoyaltyLevel;

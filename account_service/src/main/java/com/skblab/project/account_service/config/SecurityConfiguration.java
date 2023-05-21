@@ -1,6 +1,6 @@
 package com.skblab.project.account_service.config;
 
-import com.skblab.project.account_service.service.JwtAuthenticationFilter;
+import com.skblab.project.account_service.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Конфигурация WebSecurity с использованием JWT-фильтра
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
