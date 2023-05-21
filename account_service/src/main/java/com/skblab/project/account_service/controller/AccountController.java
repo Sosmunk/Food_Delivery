@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Контроллер для получения, изменения и удаления аккаунтов
+ * <b>Контроллер для получения, изменения и удаления аккаунтов</b>
  */
 @RestController
 @RequiredArgsConstructor

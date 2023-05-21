@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Конфигурация WebSecurity с использованием JWT-фильтра
+ * <b>Конфигурация WebSecurity с использованием JWT-фильтра</b>
  */
 @Configuration
 @EnableWebSecurity

@@ -19,7 +19,7 @@ public class CourierController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public CourierResponse getCourierById(@PathVariable("courier_id") UUID courierId) {
-        return courierService.getCourierById(courierId);
+        return courierService.getCourierByCourierId(courierId);
     }
 
     @PostMapping

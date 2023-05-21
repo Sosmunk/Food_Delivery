@@ -39,6 +39,9 @@ management:
       percentiles-histogram:
         "[http.server.requests]": true
 
+server:
+  port: ${SERVER_PORT:8083}
+
 jwt:
   access_token_validity: 10800
   access_secret: 3gFlvKIR783
