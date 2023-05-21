@@ -5,7 +5,9 @@ import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.metrics.OrderMetric;
 import com.example.order_service.repository.MenuItemRepository;
+import com.example.order_service.service.JWTService;
 import com.example.order_service.service.impl.OrderServiceImpl;
+import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,10 +29,14 @@ public class OrderController {
     MenuItemRepository menuItemRepository;
     OrderMetric orderMetric;
 
+    JWTService jwtService;
+
     @PostMapping("/post")
     @LogMethodExecution
     @Transactional
-    public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest orderRequest, @RequestHeader("Authorization") String token) {
+        Claims claims = jwtService.extractAllClaims(jwtService.extractJwtToken(token));
+        log.info(claims.toString());
         OrderResponse response = orderService.placeOrder(orderRequest);
         orderMetric.incrementOrderCounter();
         return new ResponseEntity<>(response, HttpStatus.OK);
