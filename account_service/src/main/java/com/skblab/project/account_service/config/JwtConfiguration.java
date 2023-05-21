@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Конфигурация JWT-авторизации c использованием Account в качестве имплементации UserDetails
+ */
 @Configuration
 @RequiredArgsConstructor
 public class JwtConfiguration {
@@ -22,7 +25,7 @@ public class JwtConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> accountRepository.findAccountByPhone(username)
-            .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+            .orElseThrow(() -> new UsernameNotFoundException("Пользователь c номером телефона " + username + " не найден"));
     }
 
     @Bean

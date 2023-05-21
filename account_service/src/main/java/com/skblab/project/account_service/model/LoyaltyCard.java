@@ -6,6 +6,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * <b>Сущность карты лояльности</b><br>
+ * Список полей:<br>
+ * {@link LoyaltyCard#cardId} – <i>UUID карты</i><br>
+ * {@link LoyaltyCard#account} – <i>Аккаунт</i><br>
+ * {@link LoyaltyCard#bonuses} – <i>Количество бонусов</i><br>
+ * {@link LoyaltyCard#accumulatedAmount} – <i>Накопленная сумма заказов</i><br>
+ * {@link LoyaltyCard#level} – <i>Уровень лояльности</i><br>
+ */
 @Entity
 @Data
 @Builder

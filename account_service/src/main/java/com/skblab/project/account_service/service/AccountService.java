@@ -1,18 +1,17 @@
 package com.skblab.project.account_service.service;
 
-import com.skblab.project.account_service.dto.AccountResponse;
-import com.skblab.project.account_service.dto.LoyaltyCardResponse;
+import com.skblab.project.account_service.dto.response.AccountResponse;
+import com.skblab.project.account_service.dto.response.LoyaltyCardResponse;
 import com.skblab.project.account_service.model.Account;
 import com.skblab.project.account_service.model.LoyaltyCard;
 import com.skblab.project.account_service.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor

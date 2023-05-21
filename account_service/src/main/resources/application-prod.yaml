@@ -26,6 +26,19 @@ spring:
     username: guest
     password: guest
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,info,metric
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
 jwt:
-  access_token_validity: 1800
+  access_token_validity: 10800
   access_secret: 3gFlvKIR783

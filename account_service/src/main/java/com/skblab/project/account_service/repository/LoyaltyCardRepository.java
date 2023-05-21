@@ -5,6 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
+/**
+ * <b>Репозиторий карт лояльности</b>
+ */
 public interface LoyaltyCardRepository extends CrudRepository<LoyaltyCard, UUID> {
     LoyaltyCard findLoyaltyCardByAccount_AccountId(UUID accountId);
     void deleteLoyaltyCardByAccount_AccountId(UUID accountId);

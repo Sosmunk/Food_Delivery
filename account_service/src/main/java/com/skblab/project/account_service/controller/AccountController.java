@@ -1,6 +1,6 @@
 package com.skblab.project.account_service.controller;
 
-import com.skblab.project.account_service.dto.AccountResponse;
+import com.skblab.project.account_service.dto.response.AccountResponse;
 import com.skblab.project.account_service.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Контроллер для получения, изменения и удаления аккаунтов
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/account")

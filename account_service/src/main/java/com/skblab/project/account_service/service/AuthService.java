@@ -1,10 +1,11 @@
 package com.skblab.project.account_service.service;
 
-import com.skblab.project.account_service.dto.AccountRequest;
-import com.skblab.project.account_service.dto.AuthResponse;
-import com.skblab.project.account_service.dto.JwtRequest;
+import com.skblab.project.account_service.dto.request.AccountRequest;
+import com.skblab.project.account_service.dto.response.AuthResponse;
+import com.skblab.project.account_service.dto.request.AuthRequest;
 import com.skblab.project.account_service.exception.EmailExistsException;
 import com.skblab.project.account_service.exception.PhoneExistsException;
+import com.skblab.project.account_service.jwt.JwtService;
 import com.skblab.project.account_service.model.Account;
 import com.skblab.project.account_service.model.Role;
 import com.skblab.project.account_service.repository.AccountRepository;
@@ -14,7 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
-import javax.security.auth.message.AuthException;
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,9 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Регистрация нового аккаунта
+     */
     public AuthResponse register(AccountRequest request) {
 
         if (phoneExists(request.getPhone())) {
@@ -43,13 +47,19 @@ public class AuthService {
                 .build();
         accountRepository.save(account);
 
-        String jwtToken = jwtService.generateToken(account);
+        HashMap<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("accountId", account.getAccountId());
+
+        String jwtToken = jwtService.generateToken(extraClaims, account);
         return AuthResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthResponse authorize(JwtRequest authRequest) {
+    /**
+     * Авторизация с помощью JWT-токена
+     */
+    public AuthResponse authorize(AuthRequest authRequest) {
 
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -60,17 +70,27 @@ public class AuthService {
 
         Account account = accountRepository.findAccountByPhone(authRequest.getPhone())
             .orElseThrow(EntityNotFoundException::new);
-        String jwtToken = jwtService.generateToken(account);
+
+        HashMap<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("accountId", account.getAccountId());
+
+        String jwtToken = jwtService.generateToken(extraClaims, account);
 
         return AuthResponse.builder()
             .token(jwtToken)
             .build();
     }
 
+    /**
+     * Проверка существования номера телефона в БД
+     */
     private boolean phoneExists(String phone) {
         return accountRepository.findAccountByPhone(phone).isPresent();
     }
 
+    /**
+     * Проверка существования Email-адреса в БД
+     */
     private boolean emailExists(String email) {
         return accountRepository.findAccountByEmail(email).isPresent();
     }
