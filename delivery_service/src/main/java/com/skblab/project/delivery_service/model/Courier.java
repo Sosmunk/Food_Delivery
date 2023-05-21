@@ -27,7 +27,8 @@ public class Courier {
 
     private String phone;
 
-    private Long orderId;
+    @Column(name = "order_id")
+    private UUID orderId;
 
     @NotNull
     @Column(name = "is_available")

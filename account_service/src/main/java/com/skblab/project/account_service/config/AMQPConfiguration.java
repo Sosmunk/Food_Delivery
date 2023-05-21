@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Конфигурация RabbitMQ для обмена между сервисами с помощью AMQP
+ * <b>Конфигурация RabbitMQ для обмена между сервисами с помощью AMQP</b>
  */
 @Configuration
 public class AMQPConfiguration {

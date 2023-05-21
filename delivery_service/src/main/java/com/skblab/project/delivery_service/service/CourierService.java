@@ -6,17 +6,23 @@ import com.skblab.project.delivery_service.model.Courier;
 import com.skblab.project.delivery_service.repository.CourierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CourierService {
     private final CourierRepository courierRepository;
 
-    public CourierResponse getCourierById(UUID courierId) {
+    public CourierResponse getCourierByCourierId(UUID courierId) {
         return mapToCourierResponse(courierRepository.findById(courierId).orElseThrow(EntityExistsException::new));
+    }
+
+    public Courier getCourierByOrderId(UUID orderId) {
+        return courierRepository.findCourierByOrderId(orderId).orElseThrow(EntityExistsException::new);
     }
 
     public void createCourier(CourierRequest request) {
@@ -34,7 +40,7 @@ public class CourierService {
     }
 
     public Courier getAvailableCourier() {
-        return courierRepository.findFirstByIsAvailable(true);
+        return courierRepository.findFirstByIsAvailable(true).orElse(null);
     }
 
     private CourierResponse mapToCourierResponse(Courier courier) {

@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Конфигурация JWT-авторизации c использованием Account в качестве имплементации UserDetails
+ * <b>Конфигурация JWT-авторизации c использованием Account в качестве имплементации UserDetails</b>
  */
 @Configuration
 @RequiredArgsConstructor

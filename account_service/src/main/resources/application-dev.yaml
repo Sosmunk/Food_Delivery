@@ -37,6 +37,9 @@ jwt:
   access_token_validity: 10800
   access_secret: 3gFlvKIR783
 
+server:
+  port: ${SERVER_PORT:8083}
+
 logging:
   level:
     sql: debug

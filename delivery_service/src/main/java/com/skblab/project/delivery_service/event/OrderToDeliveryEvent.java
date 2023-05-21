@@ -11,6 +11,8 @@ public class OrderToDeliveryEvent {
     UUID orderId;
 
     Address address;
+
+    String phone;
     @Data
     @AllArgsConstructor
     @NoArgsConstructor

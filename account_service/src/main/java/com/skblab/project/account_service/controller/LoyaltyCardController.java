@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 /**
- * Контроллер для управления картами лояльности пользователей
+ * <b>Контроллер для управления картами лояльности пользователей</b>
  */
 @RestController
 @RequestMapping("/api/loyalty_card")
