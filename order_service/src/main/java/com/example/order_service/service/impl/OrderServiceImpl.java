@@ -7,11 +7,12 @@ import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.event.OrderPlacedEvent;
-import com.example.order_service.event.OrderStatusChangedEvent;
-import com.example.order_service.event.publisher.OrderMessagePublisher;
+import com.example.order_service.rabbit.event.OrderStatusChangedEvent;
+import com.example.order_service.rabbit.publisher.OrderMessagePublisher;
 import com.example.order_service.repository.OrderRepository;
 import com.example.order_service.service.OrderService;
 import com.example.order_service.service.factory.OrderFactory;
+import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
 
     @LogMethodExecution
     @Transactional(propagation = Propagation.REQUIRED)
-    public OrderResponse placeOrder(OrderRequest orderRequest) {
-        Order order = orderFactory.createOrderFrom(orderRequest);
+    public OrderResponse placeOrder(OrderRequest orderRequest, Claims claims) {
+        Order order = orderFactory.createOrderFrom(orderRequest, claims);
         orderRepository.save(order);
         log.info("Service: Заказ {} сохранен", order.getOrderId());
         eventPublisher.publishEvent(OrderPlacedEvent.from(order));
@@ -60,6 +62,12 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.getOrderByOrderId(orderId);
         DeliveryOrderDTO deliveryOrderDTO = orderFactory.createDeliveryOrderDTOFrom(order);
         messagePublisher.sendReadyOrderToDelivery(deliveryOrderDTO);
+    }
+
+    @Override
+    public List<OrderResponse> getAccountOrders(UUID accountId) {
+        List<Order> orders = orderRepository.getOrdersByAccountId(accountId);
+        return orders.stream().map(orderFactory::createOrderResponseFrom).toList();
     }
 
     @Scheduled(initialDelay = 10000, fixedRate = 60000)

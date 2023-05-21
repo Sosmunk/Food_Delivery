@@ -29,6 +29,11 @@ databaseChangeLog:
                   type: varchar
                   constraints:
                     nullable: false
+              - column:
+                  name: "phone"
+                  type: varchar
+                  constraints:
+                    nullable: false
 
         - createTable:
             tableName: "t_order_menu_item"

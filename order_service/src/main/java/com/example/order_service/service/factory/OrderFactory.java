@@ -10,6 +10,7 @@ import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.entity.OrderMenuItem;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.repository.MenuItemRepository;
+import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class OrderFactory {
     MenuItemRepository menuItemRepository;
-    public Order createOrderFrom(OrderRequest request) {
+    public Order createOrderFrom(OrderRequest request, Claims claims) {
         Order order = new Order();
         order.setAddress(createAddressFrom(request.getAddressDTO()));
         order.setOrderMenuItems(request.getOrderMenuItemDTOs()
@@ -32,8 +33,8 @@ public class OrderFactory {
                 .map(orderMenuItemDTO -> createOrderMenuItemFrom(orderMenuItemDTO, order))
                 .toList());
         order.setOrderStatus(OrderStatus.CREATED);
-        //stub
-        order.setAccountId(UUID.randomUUID());
+        order.setAccountId(UUID.fromString(claims.get("accountId", String.class)));
+        order.setPhone(claims.getSubject());
 
         return order;
     }

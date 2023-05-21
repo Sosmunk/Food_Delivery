@@ -29,4 +29,5 @@ public class Order {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    private String phone;
 }

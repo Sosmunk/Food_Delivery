@@ -1,4 +1,4 @@
-package com.example.order_service.event.publisher;
+package com.example.order_service.rabbit.publisher;
 
 import com.example.order_service.domain.dto.DeliveryOrderDTO;
 import com.example.order_service.domain.dto.KitchenOrderDTO;

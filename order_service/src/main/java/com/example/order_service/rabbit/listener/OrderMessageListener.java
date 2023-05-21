@@ -1,9 +1,10 @@
-package com.example.order_service.event.listener;
+package com.example.order_service.rabbit.listener;
 
 import com.example.order_service.domain.enumerable.OrderStatus;
-import com.example.order_service.event.OrderInDeliveryEvent;
-import com.example.order_service.event.OrderPreparingEvent;
-import com.example.order_service.event.OrderReadyEvent;
+import com.example.order_service.rabbit.event.OrderDeliveredEvent;
+import com.example.order_service.rabbit.event.OrderInDeliveryEvent;
+import com.example.order_service.rabbit.event.OrderPreparingEvent;
+import com.example.order_service.rabbit.event.OrderReadyEvent;
 import com.example.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,11 +33,10 @@ public class OrderMessageListener {
         orderService.changeOrderStatus(event.getOrderId(), OrderStatus.IN_DELIVERY);
     }
 
-    // TODO
-
-//    @RabbitListener(queues= "delivered_order_queue")
-//    public void handleOrderDelivered(OrderDelivered event) {
-//
-//    }
+    @RabbitListener(queues= "delivered_order_queue")
+    public void handleOrderDelivered(OrderDeliveredEvent event) {
+        orderService.changeOrderStatus(event.getOrderId(), OrderStatus.DELIVERED);
+        log.info("ЗАКАЗ ДОСТАВЛЕН УРРРРРРААААААА!!!!!!!!");
+    }
 
 }

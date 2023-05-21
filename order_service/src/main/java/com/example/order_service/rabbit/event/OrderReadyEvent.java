@@ -1,4 +1,4 @@
-package com.example.order_service.event;
+package com.example.order_service.rabbit.event;
 
 import lombok.Data;
 

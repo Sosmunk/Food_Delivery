@@ -4,7 +4,6 @@ import com.example.order_service.common.annotation.LogMethodExecution;
 import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.metrics.OrderMetric;
-import com.example.order_service.repository.MenuItemRepository;
 import com.example.order_service.service.JWTService;
 import com.example.order_service.service.impl.OrderServiceImpl;
 import io.jsonwebtoken.Claims;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ import javax.validation.Valid;
 @Slf4j
 public class OrderController {
     OrderServiceImpl orderService;
-    MenuItemRepository menuItemRepository;
+
     OrderMetric orderMetric;
 
     JWTService jwtService;
@@ -36,14 +37,15 @@ public class OrderController {
     @Transactional
     public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest orderRequest, @RequestHeader("Authorization") String token) {
         Claims claims = jwtService.extractAllClaims(jwtService.extractJwtToken(token));
-        log.info(claims.toString());
-        OrderResponse response = orderService.placeOrder(orderRequest);
+        OrderResponse response = orderService.placeOrder(orderRequest, claims);
         orderMetric.incrementOrderCounter();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @GetMapping("/cabbage")
-    public String getCabbage() {
-        return menuItemRepository.findMenuItemByName("cabbage").toString();
+
+    @GetMapping("/get/orders")
+    public ResponseEntity<List<OrderResponse>> getAccountOrders(@RequestHeader("Authorization") String token) {
+        Claims claims = jwtService.extractAllClaims(jwtService.extractJwtToken(token));
+        return ResponseEntity.ok(orderService.getAccountOrders(UUID.fromString(claims.get("accountId", String.class))));
     }
 
 }
