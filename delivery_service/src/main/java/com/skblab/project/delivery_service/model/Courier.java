@@ -3,6 +3,7 @@ package com.skblab.project.delivery_service.model;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "t_courier")
-public class Courier {
+public class Courier implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "courier_id")

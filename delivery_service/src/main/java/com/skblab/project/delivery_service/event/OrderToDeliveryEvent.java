@@ -1,5 +1,6 @@
 package com.skblab.project.delivery_service.event;
 
+import com.skblab.project.delivery_service.model.Address;
 import lombok.*;
 
 import java.util.UUID;
@@ -9,28 +10,6 @@ import java.util.UUID;
 @Setter
 public class OrderToDeliveryEvent {
     UUID orderId;
-
-    Address address;
-
     String phone;
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Address {
-        String city;
-
-        // Район проживания
-        String district;
-
-        String street;
-
-        Integer houseNumber;
-
-        /**
-         * Буква номера дома (А, Б, В...)
-         */
-        String houseNumberLiteral;
-
-        Integer apartmentNumber;
-    }
+    Address address;
 }

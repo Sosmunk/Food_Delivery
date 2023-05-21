@@ -1,6 +1,7 @@
 package com.skblab.project.kitchen_service.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.skblab.project.kitchen_service.model.OrderMenuItem;
 import lombok.*;
 
 import java.util.List;
@@ -15,14 +16,4 @@ public class OrderPaidEvent {
     UUID orderId;
     @JsonProperty(value = "orderMenuItems")
     List<OrderMenuItem> orderMenuItems;
-
-
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    public static class OrderMenuItem {
-        Long itemId;
-        String name;
-        int quantity;
-    }
 }

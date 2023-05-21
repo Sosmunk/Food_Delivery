@@ -1,6 +1,6 @@
 package com.skblab.project.kitchen_service.controller;
 
-import com.skblab.project.kitchen_service.event.OrderPaidEvent;
+import com.skblab.project.kitchen_service.model.KitchenParams;
 import com.skblab.project.kitchen_service.service.KitchenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class KitchenController {
     private final KitchenService kitchenService;
+
+    @GetMapping("/order")
+    @ResponseStatus(HttpStatus.OK)
+    public List<KitchenParams> getAllDeliveryParams() {
+        return kitchenService.getAllKitchenParams();
+    }
+
+    @GetMapping("/order/{order_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public KitchenParams getDeliveryParams(@PathVariable("order_id") UUID orderId) {
+        return kitchenService.getKitchenParams(orderId);
+    }
 
     @PatchMapping("/{order_id}/is_preparing")
     @ResponseStatus(HttpStatus.OK)

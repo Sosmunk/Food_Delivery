@@ -66,6 +66,9 @@ public class LoyaltyCardService {
         }
     }
 
+    /**
+     * Накапливает бонусы на карте в соответствии с текущим уровнем лояльности
+     */
     public void accumulateBonuses(OrderPaidEvent event) {
         LoyaltyCard loyaltyCard = loyaltyCardRepository.findById(event.getAccountId())
                 .orElseThrow(EntityNotFoundException::new);
@@ -80,23 +83,9 @@ public class LoyaltyCardService {
         }
     }
 
-    private LoyaltyCardResponse mapToLoyaltyCard(LoyaltyCard loyaltyCard) {
-        return LoyaltyCardResponse.builder()
-            .cardholder(mapToAccountResponse(loyaltyCard.getAccount()))
-            .bonuses(loyaltyCard.getBonuses())
-            .accumulatedAmount(loyaltyCard.getAccumulatedAmount())
-            .loyaltyLevel(loyaltyCard.getLevel())
-            .build();
-    }
-
-    private AccountResponse mapToAccountResponse(Account account) {
-        return AccountResponse.builder()
-            .name(account.getName())
-            .email(account.getEmail())
-            .phone(account.getPhone())
-            .build();
-    }
-
+    /**
+     * Возвращает уровень лояльности по накопленной сумме заказов
+     */
     private LoyaltyLevel getLoyaltyLevelByAccumulatedAmount(Double accumulatedAmount) {
         LoyaltyLevel currentLevel = LoyaltyLevel.COMMON;
         for (LoyaltyLevel level : LoyaltyLevel.values()) {
@@ -105,5 +94,22 @@ public class LoyaltyCardService {
             }
         }
         return currentLevel;
+    }
+
+    private LoyaltyCardResponse mapToLoyaltyCard(LoyaltyCard loyaltyCard) {
+        return LoyaltyCardResponse.builder()
+                .cardholder(mapToAccountResponse(loyaltyCard.getAccount()))
+                .bonuses(loyaltyCard.getBonuses())
+                .accumulatedAmount(loyaltyCard.getAccumulatedAmount())
+                .loyaltyLevel(loyaltyCard.getLevel())
+                .build();
+    }
+
+    private AccountResponse mapToAccountResponse(Account account) {
+        return AccountResponse.builder()
+                .name(account.getName())
+                .email(account.getEmail())
+                .phone(account.getPhone())
+                .build();
     }
 }

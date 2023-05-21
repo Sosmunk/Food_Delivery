@@ -14,5 +14,6 @@ public class OrderReadyHandler {
     @RabbitListener(queues = "to_delivery_order_queue")
     public void handleOrderReady(OrderToDeliveryEvent event) {
         deliveryService.changeOrderStatusToInDelivery(event.getOrderId());
+        deliveryService.createDeliveryParams(event);
     }
 }
