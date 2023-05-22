@@ -1,5 +1,6 @@
 package com.example.order_service.rabbit.publisher;
 
+import com.example.order_service.domain.dto.AccountOrderDTO;
 import com.example.order_service.domain.dto.DeliveryOrderDTO;
 import com.example.order_service.domain.dto.KitchenOrderDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +16,14 @@ public class OrderMessagePublisher {
     private final DirectExchange orderDirectExchange;
 
     public void sendPaidOrderToKitchen(KitchenOrderDTO kitchenOrderDTO) {
-        template.convertAndSend(orderDirectExchange.getName(), "order.paid", kitchenOrderDTO);
+        template.convertAndSend(orderDirectExchange.getName(), "order.to_kitchen", kitchenOrderDTO);
     }
 
     public void sendReadyOrderToDelivery(DeliveryOrderDTO deliveryOrderDTO) {
         template.convertAndSend(orderDirectExchange.getName(), "order.to_delivery", deliveryOrderDTO);
+    }
+
+    public void sendPaidOrderToAccountService(AccountOrderDTO accountOrderDTO) {
+        template.convertAndSend(orderDirectExchange.getName(), "order.paid", accountOrderDTO);
     }
 }

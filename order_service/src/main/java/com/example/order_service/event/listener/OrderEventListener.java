@@ -1,9 +1,10 @@
 package com.example.order_service.event.listener;
 
+import com.example.order_service.domain.dto.AccountOrderDTO;
 import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.event.OrderPlacedEvent;
-import com.example.order_service.rabbit.event.OrderStatusChangedEvent;
+import com.example.order_service.event.OrderStatusChangedEvent;
 import com.example.order_service.rabbit.publisher.OrderMessagePublisher;
 import com.example.order_service.repository.OrderRepository;
 import com.example.order_service.service.OrderService;
@@ -28,6 +29,7 @@ public class OrderEventListener {
     public void mockOrderPayment(OrderPlacedEvent event) {
         orderService.changeOrderStatus(event.getOrderId(), OrderStatus.PAID);
         Order order = orderRepository.getOrderByOrderId(event.getOrderId());
+        orderMessagePublisher.sendPaidOrderToAccountService(new AccountOrderDTO(event.getAccountId(), event.getOrderPrice(), 0));
         orderMessagePublisher.sendPaidOrderToKitchen(orderFactory.createKitchenOrderDtoFrom(order));
     }
 

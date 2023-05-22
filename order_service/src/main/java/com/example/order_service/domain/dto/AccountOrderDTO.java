@@ -9,7 +9,7 @@ public class AccountOrderDTO {
 
     UUID accountId;
 
-    Integer cost;
+    Integer orderPrice;
 
-    //TODO: Bonuses spent
+    Integer spentBonuses;
 }

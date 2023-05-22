@@ -105,6 +105,6 @@ public class OrderFactory {
     }
 
     public DeliveryOrderDTO createDeliveryOrderDTOFrom(Order order) {
-        return new DeliveryOrderDTO(order.getOrderId(), createDeliveryAddress(order.getAddress()));
+        return new DeliveryOrderDTO(order.getOrderId(), createDeliveryAddress(order.getAddress()), order.getPhone());
     }
 }

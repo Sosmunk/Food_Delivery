@@ -11,6 +11,8 @@ public class DeliveryOrderDTO {
     UUID orderId;
 
     Address address;
+
+    String phone;
     @Value
     @Builder
     public static class Address {

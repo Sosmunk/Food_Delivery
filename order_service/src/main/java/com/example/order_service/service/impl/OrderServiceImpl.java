@@ -7,7 +7,7 @@ import com.example.order_service.domain.dto.response.OrderResponse;
 import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import com.example.order_service.event.OrderPlacedEvent;
-import com.example.order_service.rabbit.event.OrderStatusChangedEvent;
+import com.example.order_service.event.OrderStatusChangedEvent;
 import com.example.order_service.rabbit.publisher.OrderMessagePublisher;
 import com.example.order_service.repository.OrderRepository;
 import com.example.order_service.service.OrderService;
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderFactory.createOrderFrom(orderRequest, claims);
         orderRepository.save(order);
         log.info("Service: Заказ {} сохранен", order.getOrderId());
-        eventPublisher.publishEvent(OrderPlacedEvent.from(order));
+        eventPublisher.publishEvent(new OrderPlacedEvent(order.getOrderId(), order.getAccountId(), calculateOrderPrice(order)));
         return orderFactory.createOrderResponseFrom(order);
     }
 
@@ -62,6 +62,14 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.getOrderByOrderId(orderId);
         DeliveryOrderDTO deliveryOrderDTO = orderFactory.createDeliveryOrderDTOFrom(order);
         messagePublisher.sendReadyOrderToDelivery(deliveryOrderDTO);
+    }
+
+    @Override
+    public Integer calculateOrderPrice(Order order) {
+        return order.getOrderMenuItems()
+                .stream()
+                .mapToInt(orderMenuItem -> orderMenuItem.getQuantity() * orderMenuItem.getMenuItem().getPrice())
+                .sum();
     }
 
     @Override

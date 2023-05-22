@@ -2,6 +2,7 @@ package com.example.order_service.service;
 
 import com.example.order_service.domain.dto.request.OrderRequest;
 import com.example.order_service.domain.dto.response.OrderResponse;
+import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
 import io.jsonwebtoken.Claims;
 
@@ -14,6 +15,8 @@ public interface OrderService {
     void changeOrderStatus(UUID uuid, OrderStatus orderStatus);
 
     void processReadyOrder(UUID orderId);
+
+    Integer calculateOrderPrice(Order order);
 
     List<OrderResponse> getAccountOrders(UUID accountId);
 }

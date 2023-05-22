@@ -69,6 +69,17 @@ public class AMQPConfiguration {
     }
 
     @Bean
+    public Queue toKitchenOrderQueue() {
+        log.info("To kitchen order created");
+        return new Queue("to_kitchen_order_queue", true);
+    }
+
+    @Bean
+    public Binding toKitchenOrderBinding(DirectExchange orderDirectExchange, Queue toKitchenOrderQueue) {
+        return BindingBuilder.bind(toKitchenOrderQueue).to(orderDirectExchange).with("order.to_kitchen");
+    }
+
+    @Bean
     public Binding inDeliveryOrderBinding(DirectExchange orderDirectExchange, Queue inDeliveryOrderQueue) {
         return BindingBuilder.bind(inDeliveryOrderQueue).to(orderDirectExchange).with("order.in_delivery");
     }

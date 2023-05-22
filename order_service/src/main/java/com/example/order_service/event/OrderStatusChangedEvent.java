@@ -1,4 +1,4 @@
-package com.example.order_service.rabbit.event;
+package com.example.order_service.event;
 
 import com.example.order_service.domain.entity.Order;
 import com.example.order_service.domain.enumerable.OrderStatus;
@@ -15,9 +15,5 @@ public class OrderStatusChangedEvent {
 
     public static OrderStatusChangedEvent from(Order order) {
         return new OrderStatusChangedEvent(order.getOrderId(), order.getOrderStatus());
-    }
-
-    public static OrderStatusChangedEvent from(UUID uuid, OrderStatus orderStatus) {
-        return new OrderStatusChangedEvent(uuid, orderStatus);
     }
 }
