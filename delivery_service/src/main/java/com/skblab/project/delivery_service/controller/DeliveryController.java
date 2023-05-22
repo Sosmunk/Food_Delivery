@@ -27,12 +27,6 @@ public class DeliveryController {
         return deliveryService.getDeliveryParams(orderId);
     }
 
-    @PatchMapping("/order/{order_id}/in_delivery")
-    @ResponseStatus(HttpStatus.OK)
-    public void changeOrderStatusToInDelivery(@PathVariable("order_id") UUID orderId) {
-        deliveryService.changeOrderStatusToInDelivery(orderId);
-    }
-
     @PatchMapping("/order/{order_id}/delivered")
     @ResponseStatus(HttpStatus.OK)
     public void changeOrderStatusToDelivered(@PathVariable("order_id") UUID orderId) {

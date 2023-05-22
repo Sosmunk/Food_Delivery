@@ -28,22 +28,18 @@ public class DeliveryService {
     private final CourierRepository courierRepository;
     private final DeliveryEventPub deliveryEventPub;
     private final CourierService courierService;
+    private final CourierEventPub courierEventPub;
 
-    public void changeOrderStatusToInDelivery(UUID orderId) {
-        Courier choosenCourier = courierService.getAvailableCourier();
-
-        if (choosenCourier != null) {
-            OrderInDeliveryEvent event = OrderInDeliveryEvent.builder()
-                .orderId(orderId)
-                .name(choosenCourier.getName())
-                .phone(choosenCourier.getPhone())
-                .deliveryStartTimestamp(new Timestamp(System.currentTimeMillis()))
-                .build();
-            deliveryEventPub.changeOrderStatusToInDelivery(event);
-            courierRepository.changeCourierAvailability(false, orderId, choosenCourier.getCourierId());
-        } else {
-            log.info("Заказ с ID " + orderId + " не может быть принят в данный момент. Нет свободных курьеров");
-        }
+    public void changeOrderStatusToInDelivery(UUID orderId, Courier courier) {
+        OrderInDeliveryEvent event = OrderInDeliveryEvent.builder()
+            .orderId(orderId)
+            .name(courier.getName())
+            .phone(courier.getPhone())
+            .deliveryStartTimestamp(new Timestamp(System.currentTimeMillis()))
+            .build();
+        deliveryEventPub.changeOrderStatusToInDelivery(event);
+        courierRepository.changeCourierAvailability(false, orderId, courier.getCourierId());
+        getDeliveryParams(orderId).setTaken(true);
     }
 
     public void changeOrderStatusToDelivered(UUID orderId) {
@@ -53,6 +49,7 @@ public class DeliveryService {
             .deliveryEndTimestamp(new Timestamp(System.currentTimeMillis()))
             .build();
         deliveryEventPub.changeOrderStatusToDelivered(deliveredEvent);
+        courierEventPub.publishCourierIsFreed(courier);
         courierRepository.changeCourierAvailability(true, null, courier.getCourierId());
         removeDeliveryParams(orderId);
     }
@@ -61,12 +58,21 @@ public class DeliveryService {
         return deliveryParamsRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
     }
 
+    public List<DeliveryParams> getNotTakenDeliveryParams() {
+        return deliveryParamsRepository.findAllByTaken(false);
+    }
+
+    public List<DeliveryParams> getTakenDeliveryParams() {
+        return deliveryParamsRepository.findAllByTaken(true);
+    }
+
     public void createDeliveryParams(OrderToDeliveryEvent event) {
         Address address = event.getAddress();
         DeliveryParams deliveryParams = DeliveryParams.builder()
             .orderId(event.getOrderId())
             .customerPhone(event.getPhone())
             .address(address)
+            .isTaken(false)
             .build();
         deliveryParamsRepository.save(deliveryParams);
     }
