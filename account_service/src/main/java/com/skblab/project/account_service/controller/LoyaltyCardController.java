@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 /**
- * <b>Контроллер для управления картами лояльности пользователей</b>
+ * <b>Контроллер для управления картами лояльности пользователей</b><br>
+ * Список эндпоинтов:<br>
+ * <u>{@link LoyaltyCardController#getLoyaltyCardByAccountId}</u> – <i>Возвращает карту лояльности по UUID-у аккаунта</i><br>
+ * <u>{@link LoyaltyCardController#createLoyaltyCardByAccountId}</u> – <i>Создает карту лояльности для аккаунта по его UUID-у</i><br>
+ * <u>{@link LoyaltyCardController#removeLoyaltyCardByAccountId}</u> – <i>Удаляет карту лояльности по UUID-у аккаунта</i><br>
  */
 @RestController
 @RequestMapping("/api/loyalty_card")

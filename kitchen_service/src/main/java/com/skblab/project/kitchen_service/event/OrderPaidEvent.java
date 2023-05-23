@@ -1,6 +1,7 @@
 package com.skblab.project.kitchen_service.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.skblab.project.kitchen_service.model.KitchenParams;
 import com.skblab.project.kitchen_service.model.OrderMenuItem;
 import lombok.*;
 

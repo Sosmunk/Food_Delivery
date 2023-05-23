@@ -15,6 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * <b>Конфигурация JWT-авторизации c использованием Account в качестве имплементации UserDetails</b>
+ * Список бинов:<br>
+ * {@link JwtConfiguration#userDetailsService} – <i>Имплементация UserDetailsService с помощью Account</i><br>
+ * {@link JwtConfiguration#authenticationProvider} – <i>Имплементация DaoAuthenticationProvider в качестве провайдера для аутентификации</i><br>
+ * {@link JwtConfiguration#authenticationManager} – <i>Стандартный менеджер аутентификации</i><br>
+ * {@link JwtConfiguration#passwordEncoder} – <i>BCryptEncoder в качестве шифровщика пароля при аутентификации и регистрации</i><br>
  */
 @Configuration
 @RequiredArgsConstructor

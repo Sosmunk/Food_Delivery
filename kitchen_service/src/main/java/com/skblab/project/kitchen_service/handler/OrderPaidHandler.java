@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class OrderPaidHandler {
     private final KitchenService kitchenService;
 
-    @RabbitListener(queues = "paid_order_queue")
+    @RabbitListener(queues = "to_kitchen_order_queue")
     public void handleOrderPaid(OrderPaidEvent event) {
-        kitchenService.changeOrderStatusToIsPreparing(event.getOrderId());
         kitchenService.createKitchenParams(event);
+        kitchenService.changeOrderStatusToIsPreparing(event.getOrderId());
     }
 }

@@ -10,7 +10,12 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * <b>Контроллер для получения, изменения и удаления аккаунтов</b>
+ * <b>Контроллер для получения, изменения и удаления аккаунтов</b><br>
+ * Список эндпоинтов:<br>
+ * <u>{@link AccountController#getAllAccounts}</u> – <i>Возвращает список всех зарегистрированных аккаунтов</i><br>
+ * <u>{@link AccountController#getAccountById}</u> – <i>Возвращает аккаунт по его UUID-у</i><br>
+ * <u>{@link AccountController#getAccountByPhone}</u> – <i>Возвращает аккаунт по его номеру телефона</i><br>
+ * <u>{@link AccountController#removeAccountById}</u> – <i>Удаляет аккаунт по его UUID-у</i><br>
  */
 @RestController
 @RequiredArgsConstructor
