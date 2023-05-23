@@ -16,8 +16,10 @@ public class CourierFreedHandler {
     @EventListener
     public void handleCourierFreedEvent(CourierFreedEvent event) {
         List<DeliveryParams> deliveryOrders = deliveryService.getNotTakenDeliveryParams();
-        DeliveryParams chosenOrder = deliveryOrders.get(0);
-
-        deliveryService.changeOrderStatusToInDelivery(chosenOrder.getOrderId(), event.getCourier());
+        DeliveryParams chosenOrder;
+        if (!deliveryOrders.isEmpty()) {
+            chosenOrder = deliveryOrders.get(0);
+            deliveryService.changeOrderStatusToInDelivery(chosenOrder.getOrderId(), event.getCourier());
+        }
     }
 }

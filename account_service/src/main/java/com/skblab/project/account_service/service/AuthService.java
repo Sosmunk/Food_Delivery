@@ -49,6 +49,7 @@ public class AuthService {
 
         HashMap<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("accountId", account.getAccountId());
+        extraClaims.put("role", account.getRole());
 
         String jwtToken = jwtService.generateToken(extraClaims, account);
         return AuthResponse.builder()
@@ -73,6 +74,7 @@ public class AuthService {
 
         HashMap<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("accountId", account.getAccountId());
+        extraClaims.put("role", account.getRole());
 
         String jwtToken = jwtService.generateToken(extraClaims, account);
 

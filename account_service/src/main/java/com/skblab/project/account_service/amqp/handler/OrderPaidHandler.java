@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <b>Обработчик оплаченных заказов из RabbitMQ</b>
+ * <p>Получает сообщение об успешной оплате от Order Service</p>
  */
 @Service
 @RequiredArgsConstructor

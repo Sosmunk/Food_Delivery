@@ -21,4 +21,5 @@ public class KitchenParams implements Serializable {
     @Indexed
     private UUID orderId;
     private List<OrderMenuItem> orderMenuItems;
+
 }

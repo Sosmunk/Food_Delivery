@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * <b>Контроллер для регистрации нового аккаунта и авторизации</b>
+ * <b>Контроллер для регистрации нового аккаунта и авторизации</b><br>
+ * Список эндпоинтов:<br>
+ * <u>{@link AuthController#authorize}</u> – <i>Авторизация и получением JWT-токена</i><br>
+ * <u>{@link AuthController#register}</u> – <i>Регистрация и получение JWT-токена</i><br>
  */
 @RestController
 @RequestMapping("/api/account")
