@@ -1,5 +1,6 @@
 package com.skblab.project.kitchen_service.service;
 
+import com.skblab.project.kitchen_service.aspect.LogOrderStatusChange;
 import com.skblab.project.kitchen_service.event.OrderIsPreparingEvent;
 import com.skblab.project.kitchen_service.event.OrderPaidEvent;
 import com.skblab.project.kitchen_service.event.OrderReadyEvent;
@@ -18,6 +19,7 @@ public class KitchenService {
     private final KitchenEventPub kitchenEventPub;
     private final KitchenParamsRepository kitchenParamsRepository;
 
+    @LogOrderStatusChange
     public void changeOrderStatusToIsPreparing(UUID orderId) {
         OrderIsPreparingEvent event = OrderIsPreparingEvent.builder()
             .orderId(orderId)
@@ -25,6 +27,7 @@ public class KitchenService {
         kitchenEventPub.changeOrderStatusToIsPreparing(event);
     }
 
+    @LogOrderStatusChange
     public void changeOrderStatusToReady(UUID orderId) {
         OrderReadyEvent event = OrderReadyEvent.builder()
             .orderId(orderId)

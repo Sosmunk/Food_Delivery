@@ -70,16 +70,17 @@ public class LoyaltyCardService {
      * Накапливает бонусы на карте в соответствии с текущим уровнем лояльности
      */
     public void accumulateBonuses(OrderPaidEvent event) {
-        LoyaltyCard loyaltyCard = loyaltyCardRepository.findById(event.getAccountId())
-                .orElseThrow(EntityNotFoundException::new);
-        if (event.getSpentBonuses() > loyaltyCard.getBonuses()) {
-            log.error("Бонусов на карте меньше, чем использовано в платеже");
-        } else {
-            loyaltyCard.setAccumulatedAmount(loyaltyCard.getAccumulatedAmount() + event.getOrderPrice());
-            loyaltyCard.setBonuses((int)(loyaltyCard.getBonuses() +
-                (event.getSpentBonuses() * loyaltyCard.getLevel().getBonusesPercent() * 0.01))
-                - event.getSpentBonuses());
-            loyaltyCard.setLevel(getLoyaltyLevelByAccumulatedAmount(loyaltyCard.getAccumulatedAmount()));
+        LoyaltyCard loyaltyCard = loyaltyCardRepository.findById(event.getAccountId()).orElse(null);
+        if (loyaltyCard != null) {
+            if (event.getSpentBonuses() > loyaltyCard.getBonuses()) {
+                log.error("Бонусов на карте меньше, чем использовано в платеже");
+            } else {
+                loyaltyCard.setAccumulatedAmount(loyaltyCard.getAccumulatedAmount() + event.getOrderPrice());
+                loyaltyCard.setBonuses((int)(loyaltyCard.getBonuses() +
+                        (event.getSpentBonuses() * loyaltyCard.getLevel().getBonusesPercent() * 0.01))
+                        - event.getSpentBonuses());
+                loyaltyCard.setLevel(getLoyaltyLevelByAccumulatedAmount(loyaltyCard.getAccumulatedAmount()));
+            }
         }
     }
 
