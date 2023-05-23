@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -26,7 +27,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-            String token = jwtService.extractJwtToken(request.getHeader("Authentication"));
+            String token = jwtService.extractJwtToken(request.getHeader("Authorization"));
             Authentication authentication = authenticateToken(token);
 
             if (authentication != null) {
@@ -35,8 +36,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         }
-
-
     private Authentication authenticateToken(String token) {
         try {
             Claims claims = jwtService.extractAllClaims(token);
@@ -49,6 +48,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             return new UsernamePasswordAuthenticationToken(username, null, List.of(authority));
         } catch (Exception e) {
             logger.error("Validation failed");
+            logger.error(e.getMessage());
+            logger.error(Arrays.toString(e.getStackTrace()));
         }
 
         return null;

@@ -22,6 +22,7 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
+            .antMatchers("/order/**").hasAuthority("CUSTOMER")
             .anyRequest()
             .authenticated()
             .and()
