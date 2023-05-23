@@ -78,6 +78,9 @@ public class OrderServiceImpl implements OrderService {
         return orders.stream().map(orderFactory::createOrderResponseFrom).toList();
     }
 
+    /**
+     * Каждую минуту логирует количество незавершенных заказов
+     */
     @Scheduled(initialDelay = 10000, fixedRate = 60000)
     public void getNotFinishedOrderCount() {
         String tableName = "t_order";

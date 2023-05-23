@@ -6,6 +6,9 @@ import lombok.Value;
 
 import java.util.UUID;
 
+/**
+ * Событие, в котором сообщается о том, что статус заказа был изменен
+ */
 @Value
 public class OrderStatusChangedEvent {
 
