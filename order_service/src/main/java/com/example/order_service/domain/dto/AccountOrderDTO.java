@@ -4,12 +4,24 @@ import lombok.Value;
 
 import java.util.UUID;
 
+/**
+ * DTO для отправки на Account микросервис для накопления и списания бонусов при заказе
+ */
 @Value
 public class AccountOrderDTO {
 
+    /**
+     * Id аккаунта
+     */
     UUID accountId;
 
-    Integer cost;
+    /**
+     * Цена заказа
+     */
+    Integer orderPrice;
 
-    //TODO: Bonuses spent
+    /**
+     * Количество потраченных бонусов (не реализовано из-за нехватки времени)
+     */
+    Integer spentBonuses;
 }

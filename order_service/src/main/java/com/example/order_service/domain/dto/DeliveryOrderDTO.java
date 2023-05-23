@@ -5,22 +5,46 @@ import lombok.Value;
 
 import java.util.UUID;
 
+/**
+ * DTO для отправки на Delivery микросервис с информацией об адресе заказа и телефоном пользователя
+ */
 @Value
-
 public class DeliveryOrderDTO {
+    /**
+     * Номер заказа
+     */
     UUID orderId;
 
+    /**
+     * Адрес заказа
+     */
     Address address;
+
+    /**
+     * Номер телефона с которого совершен заказ
+     */
+    String phone;
     @Value
     @Builder
     public static class Address {
+        /**
+         * Город
+         */
         String city;
 
-        // Район проживания
+        /**
+         * Район
+         */
         String district;
 
+        /**
+         * Улица
+         */
         String street;
 
+        /**
+         * Номер дома
+         */
         Integer houseNumber;
 
         /**
@@ -28,6 +52,9 @@ public class DeliveryOrderDTO {
          */
         String houseNumberLiteral;
 
+        /**
+         * Номер квартиры
+         */
         Integer apartmentNumber;
     }
 }

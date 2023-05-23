@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Slf4j
-
 public class LoggingAspect {
     @Profile("dev")
     @Before(value = "@annotation(com.example.order_service.common.annotation.LogMethodExecution)")

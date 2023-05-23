@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Адрес, хранящийся в таблице <b>t_address</b>
+ * <p>Указывается в {@link com.example.order_service.domain.entity.Order Order}</p>
+ */
 @Entity
 @Builder
 @Setter
@@ -12,20 +16,32 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "t_address")
 public class Address {
-
+    /**
+     * Уникальный id адреса доставки
+     */
     @Id
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @Column(name = "address_id")
     private Long addressId;
-
+    /**
+     * Город
+     */
     private String city;
 
-    // Район проживания
+    /**
+     * Район
+     */
     private String district;
 
+    /**
+     * Улица
+     */
     private String street;
 
+    /**
+     * Номер дома
+     */
     private Integer houseNumber;
 
     /**
@@ -33,6 +49,9 @@ public class Address {
      */
     private String houseNumberLiteral;
 
+    /**
+     * Номер квартиры
+     */
     private Integer apartmentNumber;
 
 }
