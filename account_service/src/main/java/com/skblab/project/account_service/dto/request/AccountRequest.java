@@ -1,5 +1,6 @@
 package com.skblab.project.account_service.dto.request;
 
+import com.skblab.project.account_service.model.Role;
 import lombok.*;
 
 import javax.validation.constraints.*;
@@ -46,4 +47,6 @@ public class AccountRequest {
 
     @Pattern(regexp = "^(\\+7|8)\\d{10}$", message = "Неверный формат телефонного номера")
     private String phone;
+
+    private String role;
 }

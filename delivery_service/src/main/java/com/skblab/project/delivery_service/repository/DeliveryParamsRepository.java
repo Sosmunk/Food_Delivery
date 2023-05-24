@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface DeliveryParamsRepository extends CrudRepository<DeliveryParams, UUID> {
-    List<DeliveryParams> findAllByTaken(boolean isTaken);
+    List<DeliveryParams> findDeliveryParamsByTaken(int taken);
 }

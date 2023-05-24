@@ -42,7 +42,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .phone(request.getPhone())
-                .role(Role.CUSTOMER)
+                .role(Role.valueOf(request.getRole()))
                 .enabled(true)
                 .build();
         accountRepository.save(account);
