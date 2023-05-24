@@ -21,5 +21,5 @@ public class DeliveryParams implements Serializable {
     private UUID orderId;
     private String customerPhone;
     private Address address;
-    private boolean isTaken;
+    private int taken;
 }

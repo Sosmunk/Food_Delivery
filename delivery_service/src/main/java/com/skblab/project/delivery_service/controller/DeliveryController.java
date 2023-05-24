@@ -11,23 +11,23 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/")
+@RequestMapping("/api/order")
 public class DeliveryController {
     private final DeliveryService deliveryService;
 
-    @GetMapping("/order")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<DeliveryParams> getAllDeliveryParams() {
         return deliveryService.getAllDeliveryParams();
     }
 
-    @GetMapping("/order/{order_id}")
+    @GetMapping("/{order_id}")
     @ResponseStatus(HttpStatus.OK)
     public DeliveryParams getDeliveryParams(@PathVariable("order_id") UUID orderId) {
         return deliveryService.getDeliveryParams(orderId);
     }
 
-    @PatchMapping("/order/{order_id}/delivered")
+    @PatchMapping("/{order_id}/delivered")
     @ResponseStatus(HttpStatus.OK)
     public void changeOrderStatusToDelivered(@PathVariable("order_id") UUID orderId) {
         deliveryService.changeOrderStatusToDelivered(orderId);

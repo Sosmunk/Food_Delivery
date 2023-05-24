@@ -39,7 +39,7 @@ public class DeliveryService {
             .build();
         deliveryEventPub.changeOrderStatusToInDelivery(event);
         courierRepository.changeCourierAvailability(false, orderId, courier.getCourierId());
-        getDeliveryParams(orderId).setTaken(true);
+        deliveryParamsRepository.findById(orderId).orElseThrow().setTaken(1);
     }
 
     public void changeOrderStatusToDelivered(UUID orderId) {
@@ -59,11 +59,11 @@ public class DeliveryService {
     }
 
     public List<DeliveryParams> getNotTakenDeliveryParams() {
-        return deliveryParamsRepository.findAllByTaken(false);
+        return deliveryParamsRepository.findDeliveryParamsByTaken(0);
     }
 
     public List<DeliveryParams> getTakenDeliveryParams() {
-        return deliveryParamsRepository.findAllByTaken(true);
+        return deliveryParamsRepository.findDeliveryParamsByTaken(1);
     }
 
     public void createDeliveryParams(OrderToDeliveryEvent event) {
@@ -72,7 +72,7 @@ public class DeliveryService {
             .orderId(event.getOrderId())
             .customerPhone(event.getPhone())
             .address(address)
-            .isTaken(false)
+            .taken(0)
             .build();
         deliveryParamsRepository.save(deliveryParams);
     }

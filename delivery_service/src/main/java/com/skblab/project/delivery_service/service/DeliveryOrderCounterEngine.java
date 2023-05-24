@@ -18,6 +18,7 @@ public class DeliveryOrderCounterEngine {
     public void logOrdersCount() {
         log.info("[x] В данный момент " + deliveryService.getNotTakenDeliveryParams().size() + " заказов находятся в ожидании [x]");
         log.info("[x] В данный момент " + deliveryService.getTakenDeliveryParams().size() + " заказов находятся в доставке [x]");
+        log.info("[x] Сейчас всего " + deliveryService.getAllDeliveryParams().size() + " заказов [x]");
     }
 
 }
