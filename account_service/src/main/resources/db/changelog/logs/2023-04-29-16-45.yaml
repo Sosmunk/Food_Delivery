@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: "Andrew Fer"
+      changes:
+        - createTable:
+            tableName: "t_loyalty_card"
+            columns:
+              - column:
+                  name: "account_id"
+                  type: uuid
+                  constraints:
+                    foreignKeyName: "fk_loyalty_card_account"
+                    references: t_account(account_id)
+              - column:
+                  name: "bonuses"
+                  type: int
+              - column:
+                  name: "accumulated_amount"
+                  type: real
+              - column:
+                  name: "level"
+                  type: varchar

@@ -1,24 +1,14 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:food_delivery_db}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: dev
 
-  jpa:
-    properties:
-      hibernate:
-        default_schema: ${POSTGRES_SCHEMA:public}
-    hibernate:
-      ddl-auto: none
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metric
 
-  liquibase:
-    default-schema: ${POSTGRES_SCHEMA:public}
-    change-log: classpath:db/changelog/db.changelog-master.xml
-    enabled: true
-    contexts: prod
-    drop-first: true
-
-logging:
-  level:
-    sql: debug
+  metrics:
+    export:
+      prometheus:
+        enabled: true

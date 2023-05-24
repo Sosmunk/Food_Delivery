@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: "Sosmunk"
+      changes:
+        - createSequence:
+            sequenceName: "hibernate_sequence"
+            startValue: 1
+            incrementBy: 1
+        - createTable:
+            tableName: "t_address"
+            columns:
+              - column:
+                  name: "address_id"
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: "city"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "district"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "street"
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "house_number"
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "house_number_literal"
+                  type: varchar(1)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: "apartment_number"
+                  type: integer
+                  constraints:
+                    nullable: false

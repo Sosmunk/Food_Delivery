@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: "Account Service (Development)"
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:food_delivery_db}?currentSchema=${POSTGRES_SCHEMA:public}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    default-schema: ${POSTGRES_SCHEMA:public}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: true
+    driver-class-name: org.postgresql.Driver
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        default-requeue-rejected: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,info,metric
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+jwt:
+  access_token_validity: 10800
+  access_secret: 3gFlvKIR783
+
+server:
+  port: ${SERVER_PORT:8083}
+
+logging:
+  level:
+    sql: debug

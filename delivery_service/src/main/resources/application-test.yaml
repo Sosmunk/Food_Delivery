@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: "Delivery Service (Test)"
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:food_delivery_db}?currentSchema=${POSTGRES_SCHEMA:public}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    default-schema: ${POSTGRES_SCHEMA:public}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        default-requeue-rejected: false
+
+server:
+  port: ${SERVER_PORT:8081}
+
+jwt:
+  access_secret: 3gFlvKIR783

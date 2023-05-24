@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: "Sosmunk"
+      changes:
+        - createTable:
+            tableName: "t_menu_item"
+            columns:
+              - column:
+                  name: "menu_item_id"
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: "name"
+                  type: varchar
+              - column:
+                  name: price
+                  type: integer
+        - sql:
+            sql: insert into t_menu_item values(nextval('hibernate_sequence'), 'tomato', 100)
+        - sql:
+            sql: insert into t_menu_item values(nextval('hibernate_sequence'), 'cabbage', 100)
