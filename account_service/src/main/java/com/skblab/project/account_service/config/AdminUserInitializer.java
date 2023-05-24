@@ -21,7 +21,8 @@ public class AdminUserInitializer implements CommandLineRunner {
                     "admin",
                     "admin123",
                     "admin@admin.ru",
-                    "89089183022"));
+                    "89089183022",
+                    "ADMIN"));
         }
     }
 }
