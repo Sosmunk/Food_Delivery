@@ -49,9 +49,9 @@ public class DeliveryService {
             .deliveryEndTimestamp(new Timestamp(System.currentTimeMillis()))
             .build();
         deliveryEventPub.changeOrderStatusToDelivered(deliveredEvent);
+        removeDeliveryParams(orderId);
         courierEventPub.publishCourierIsFreed(courier);
         courierRepository.changeCourierAvailability(true, null, courier.getCourierId());
-        removeDeliveryParams(orderId);
     }
 
     public DeliveryParams getDeliveryParams(UUID orderId) {

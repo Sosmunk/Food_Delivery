@@ -19,7 +19,13 @@ public class DeliveryParams implements Serializable {
     @Id
     @Indexed
     private UUID orderId;
+
+    @Indexed
     private String customerPhone;
+
+    @Indexed
     private Address address;
+
+    @Indexed
     private int taken;
 }
